@@ -29,13 +29,55 @@ public class ArduinoFishSpawner : MonoBehaviour
         {
             try
             {
-                string data = _serialPort.ReadLine(); // Expected: "UID: 17 E6 xx xx"
+                // Read the line once per loop iteration
+                string data = _serialPort.ReadLine(); 
+
                 if (data.StartsWith("UID:"))
                 {
                     ProcessNFCData(data);
                 }
+                else if (data.StartsWith("FORCE:"))
+                {
+                    ProcessForceData(data);
+                }
             }
-            catch (System.Exception) { /* Timeout or parse error */ }
+            catch (System.Exception) 
+            { 
+                /* Timeout or parse error - common with Serial */ 
+            }
+        }
+    }
+
+    void ProcessForceData(string input)
+    {
+        string valueStr = input.Replace("FORCE:", "").Trim();
+    
+        if (int.TryParse(valueStr, out int forceValue))
+        {
+            // Debug to see the real-time values in Unity Console
+            Debug.Log("Current Force Value: " + forceValue);
+
+            // Threshold set slightly above the 50 floor to avoid accidental triggers
+            if (forceValue > 60) 
+            {
+                DisturbFish();
+            }
+        }
+    }
+
+    void DisturbFish()
+    {
+        foreach (var fish in fishPool)
+        {
+            // Only boost fish that are currently visible/active
+            if (fish.activeSelf)
+            {
+                var moveScript = fish.GetComponent<RandomFishMovement2>();
+                if (moveScript != null)
+                {
+                    moveScript.ApplyBoost(1.0f); // 1 second boost
+                }
+            }
         }
     }
 
