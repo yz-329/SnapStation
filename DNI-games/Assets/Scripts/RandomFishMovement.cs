@@ -6,6 +6,7 @@ public class RandomFishMovement : MonoBehaviour
 
     private int direction = -1; // START LEFT (correct)
     private float minX, maxX;
+    public bool isCaught = false;
 
     private Vector3 originalScale;
 
@@ -27,6 +28,8 @@ public class RandomFishMovement : MonoBehaviour
 
     void Update()
     {
+        if (isCaught) return;
+
         transform.position += Vector3.right * direction * speed * Time.deltaTime;
 
         // Only change direction at edges
