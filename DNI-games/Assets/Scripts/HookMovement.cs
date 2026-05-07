@@ -2,35 +2,48 @@ using UnityEngine;
 
 public class HookMovement : MonoBehaviour
 {
-    public float speed = 3f;
-    private bool movingDown = true;
+    public float speed = 2.5f;
+    public float targetDepth = 0f; //how deep the hook gets
+
+    private bool dropping = false;
+    private bool returning = false;
 
     void OnEnable()
     {
-        movingDown = true;
+        dropping = true;
+        returning = false;
     }
 
     void Update()
     {
-        if (movingDown)
+        // DROPPING
+        if (dropping)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
 
-            // stop at certain depth
-            if (transform.position.y < -3f)
+            // Reached fishing depth
+            if (transform.position.y <= targetDepth)
             {
-                movingDown = false;
+                dropping = false;
             }
         }
-        else
+
+        // RETURNING
+        if (returning)
         {
-            // move back up
             transform.Translate(Vector2.up * speed * Time.deltaTime);
 
-            if (transform.position.y > 4f)
+            // Back to top
+            if (transform.position.y >= 4f)
             {
-                gameObject.SetActive(false); // reset
+                gameObject.SetActive(false);
             }
         }
+    }
+
+    // Called when fish is caught
+    public void ReturnUp()
+    {
+        returning = true;
     }
 }
