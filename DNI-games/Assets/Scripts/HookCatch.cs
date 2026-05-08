@@ -4,6 +4,14 @@ public class HookCatch : MonoBehaviour
 {
     private bool hasCaughtFish = false;
 
+    private HookMovement hookMovement;
+
+    void Start()
+    {
+        // Get parent HookMovement
+        hookMovement = GetComponentInParent<HookMovement>();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (hasCaughtFish) return;
@@ -19,14 +27,14 @@ public class HookCatch : MonoBehaviour
             if (move != null)
                 move.enabled = false;
 
-            // Attach fish to hook
-            fish.SetParent(transform);
+            // Attach fish to MAIN hook
+            fish.SetParent(transform.parent);
 
-            // Snap closer to hook
-            fish.localPosition = new Vector3(0f, -0.3f, 0f);
+            // Position fish near hook tip
+            fish.position = transform.position;
 
             // Tell hook to move upward
-            GetComponent<HookMovement>().ReturnUp();
+            hookMovement.ReturnUp();
         }
     }
 

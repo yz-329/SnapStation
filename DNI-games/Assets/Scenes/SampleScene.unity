@@ -149,7 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fae176deb440b4bf2421f060da1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFishMovement2
-  speed: 2
+  normalSpeed: 2
+  boostMultiplier: 4
   isCaught: 0
 --- !u!212 &49066340
 SpriteRenderer:
@@ -255,7 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fae176deb440b4bf2421f060da1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFishMovement2
-  speed: 2.5
+  normalSpeed: 2
+  boostMultiplier: 4
   isCaught: 0
 --- !u!212 &336103293
 SpriteRenderer:
@@ -855,7 +857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fae176deb440b4bf2421f060da1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFishMovement2
-  speed: 1.6
+  normalSpeed: 2
+  boostMultiplier: 4
   isCaught: 0
 --- !u!95 &809724566
 Animator:
@@ -1044,7 +1047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 2
-  targetDepth: -2
+  targetDepth: 0
 --- !u!212 &821945713
 SpriteRenderer:
   serializedVersion: 2
@@ -1194,7 +1197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85fae176deb440b4bf2421f060da1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFishMovement2
-  speed: 1
+  normalSpeed: 2
+  boostMultiplier: 4
   isCaught: 0
 --- !u!212 &1440042040
 SpriteRenderer:
@@ -1266,6 +1270,59 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.89, y: -1.58, z: 0}
   m_LocalScale: {x: 0.6101238, y: 0.6012157, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1538259131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1538259133}
+  - component: {fileID: 1538259132}
+  m_Layer: 0
+  m_Name: SerialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1538259132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538259131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0158a4c31d8048e0bc6ebe7e61d0e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArduinoFishSpawner
+  portName: /dev/tty.usbserial-59690940491
+  baudRate: 9600
+  fishPool:
+  - {fileID: 686453080}
+  - {fileID: 49066338}
+  - {fileID: 336103291}
+  - {fileID: 809724564}
+  - {fileID: 2034158869}
+  - {fileID: 1440042038}
+--- !u!4 &1538259133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538259131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1356,59 +1413,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.065368414, y: 0.01648879, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1538259131
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1538259133}
-  - component: {fileID: 1538259132}
-  m_Layer: 0
-  m_Name: SerialManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1538259132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538259131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0158a4c31d8048e0bc6ebe7e61d0e97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArduinoFishSpawner
-  portName: /dev/tty.usbserial-59690940491
-  baudRate: 9600
-  fishPool:
-  - {fileID: 686453080}
-  - {fileID: 49066338}
-  - {fileID: 336103291}
-  - {fileID: 809724564}
-  - {fileID: 2034158869}
-  - {fileID: 1440042038}
---- !u!4 &1538259133
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538259131}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
