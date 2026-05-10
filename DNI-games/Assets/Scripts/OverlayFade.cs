@@ -6,7 +6,7 @@ public class OverlayFade : MonoBehaviour
     public Image overlayImage;
     public Image specialImage;
 
-    public float fadeSpeed = 2f;
+    public float fadeSpeed = 1f;
 
     private bool isDark = false;
 
