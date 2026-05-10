@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class OverlayFade : MonoBehaviour
 {
     public Image overlayImage;
+    public Image specialImage;
 
     public float fadeSpeed = 2f;
 
@@ -11,24 +12,32 @@ public class OverlayFade : MonoBehaviour
 
     void Update()
     {
-        // Take button input to control the overaly background (I used space here)
+        // Take button input and trigger the overlay effect (I used Space here)
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isDark = !isDark;
         }
 
-        Color color = overlayImage.color;
+        // TARGET VALUES
+        float overlayTarget = isDark ? 0.5f : 0f;
+        float imageTarget = isDark ? 0.5f : 0f;
 
-        // Choose target alpha
-        float targetAlpha = isDark ? 0.5f : 0f;
-
-        // Smooth fade
-        color.a = Mathf.Lerp(
-            color.a,
-            targetAlpha,
+        // OVERLAY FADE
+        Color overlayColor = overlayImage.color;
+        overlayColor.a = Mathf.Lerp(
+            overlayColor.a,
+            overlayTarget,
             fadeSpeed * Time.deltaTime
         );
+        overlayImage.color = overlayColor;
 
-        overlayImage.color = color;
+        // SPECIAL IMAGE FADE
+        Color imageColor = specialImage.color;
+        imageColor.a = Mathf.Lerp(
+            imageColor.a,
+            imageTarget,
+            fadeSpeed * Time.deltaTime
+        );
+        specialImage.color = imageColor;
     }
 }
