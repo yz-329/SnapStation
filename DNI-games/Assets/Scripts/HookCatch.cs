@@ -31,8 +31,12 @@ public class HookCatch : MonoBehaviour
             fish.SetParent(transform.parent);
 
             // Position fish near hook tip
-            fish.position = transform.position;
-
+            Transform mouth = fish.Find("MouthPoint");
+            if (mouth != null)
+            {
+                Vector3 offset = fish.position - mouth.position;
+                fish.position = transform.position + offset;
+            }
             // Tell hook to move upward
             hookMovement.ReturnUp();
         }
