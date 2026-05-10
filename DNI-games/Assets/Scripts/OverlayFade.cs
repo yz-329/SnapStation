@@ -11,11 +11,11 @@ public class OverlayFade : MonoBehaviour
 
     void Update()
     {
-        // Press SPACE to trigger fade
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            fading = true;
-        }
+        // Take button input to trigger fade
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     fading = true;
+        // }
 
         // Smooth fade
         if (fading)
