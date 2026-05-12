@@ -49,6 +49,9 @@ public class HookCatch : MonoBehaviour
 
                 fish.position =
                     transform.position + offset;
+            } else
+            {
+                fish.position = transform.position; 
             }
 
             Debug.Log("Fish Hooked!");
