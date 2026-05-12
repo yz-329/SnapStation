@@ -8,13 +8,18 @@ public class HookCatch : MonoBehaviour
 
     void Start()
     {
-        // Get parent HookMovement
         hookMovement = GetComponentInParent<HookMovement>();
+    }
+
+    void OnEnable()
+    {
+        hasCaughtFish = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (hasCaughtFish) return;
+        if (hasCaughtFish)
+            return;
 
         if (other.CompareTag("Fish"))
         {
@@ -23,27 +28,30 @@ public class HookCatch : MonoBehaviour
             Transform fish = other.transform;
 
             // Stop fish movement
-            var move = fish.GetComponent<RandomFishMovement>();
-            if (move != null)
-                move.enabled = false;
+            RandomFishMovement move =
+                fish.GetComponent<RandomFishMovement>();
 
-            // Attach fish to MAIN hook
+            if (move != null)
+            {
+                move.enabled = false;
+            }
+
+            // Attach fish to hook
             fish.SetParent(transform.parent);
 
-            // Position fish near hook tip
+            // Snap mouth to hook tip
             Transform mouth = fish.Find("MouthPoint");
+
             if (mouth != null)
             {
-                Vector3 offset = fish.position - mouth.position;
-                fish.position = transform.position + offset;
-            }
-            // Tell hook to move upward
-            hookMovement.ReturnUp();
-        }
-    }
+                Vector3 offset =
+                    fish.position - mouth.position;
 
-    void OnEnable()
-    {
-        hasCaughtFish = false;
+                fish.position =
+                    transform.position + offset;
+            }
+
+            Debug.Log("Fish Hooked!");
+        }
     }
 }

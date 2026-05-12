@@ -2,13 +2,37 @@ using UnityEngine;
 
 public class FishingController : MonoBehaviour
 {
-    public GameObject hook; // assign in Inspector
+    public HookMovement hookMovement;
 
-    void Update()
+    [Header("Cast Detection")]
+    public float castThreshold = 7f;
+
+    private float lastAccelY = 0f;
+    private bool castTriggered = false;
+
+    public void ProcessAccelY(float accelY)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Detect sudden upward flick
+        float delta = accelY - lastAccelY;
+
+        if (!castTriggered && delta > castThreshold)
         {
-            hook.SetActive(true);
+            CastHook();
+            castTriggered = true;
         }
+
+        // Reset when rod returns to normal
+        if (Mathf.Abs(accelY) < 2f)
+        {
+            castTriggered = false;
+        }
+
+        lastAccelY = accelY;
+    }
+
+    void CastHook()
+    {
+        hookMovement.gameObject.SetActive(true);
+        hookMovement.StartDrop();
     }
 }

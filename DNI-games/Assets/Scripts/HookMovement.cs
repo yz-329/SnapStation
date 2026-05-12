@@ -2,48 +2,57 @@ using UnityEngine;
 
 public class HookMovement : MonoBehaviour
 {
-    public float speed = 2.5f;
-    public float targetDepth = 0f; //how deep the hook gets
+    [Header("Movement")]
+    public float dropSpeed = 2.5f;
+    public float reelSpeed = 3.5f;
+
+    [Header("Depth")]
+    public float targetDepth = 0f;
+    public float topPosition = 4f;
 
     private bool dropping = false;
-    private bool returning = false;
-
-    void OnEnable()
-    {
-        dropping = true;
-        returning = false;
-    }
+    private bool reachedDepth = false;
 
     void Update()
     {
-        // DROPPING
-        if (dropping)
-        {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
+        HandleDrop();
+    }
 
-            // Reached fishing depth
-            if (transform.position.y <= targetDepth)
-            {
-                dropping = false;
-            }
+    void HandleDrop()
+    {
+        if (!dropping) return;
+
+        transform.Translate(Vector2.down * dropSpeed * Time.deltaTime);
+
+        if (transform.position.y <= targetDepth)
+        {
+            dropping = false;
+            reachedDepth = true;
         }
+    }
 
-        // RETURNING
-        if (returning)
+    // Called when accelerometer detects cast
+    public void StartDrop()
+    {
+        dropping = true;
+        reachedDepth = false;
+    }
+
+    // Joystick reeling
+    public void ProcessJoystick(int joyValue)
+    {
+        // Debug.Log("JOY: " + joyValue + " | reachedDepth: " + reachedDepth);
+
+        // if (!reachedDepth) return;
+
+        if (joyValue > 3000)
         {
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
+            transform.Translate(Vector2.up * reelSpeed * Time.deltaTime);
 
-            // Back to top
-            if (transform.position.y >= 4f)
+            if (transform.position.y >= topPosition)
             {
                 gameObject.SetActive(false);
             }
         }
-    }
-
-    // Called when fish is caught
-    public void ReturnUp()
-    {
-        returning = true;
     }
 }

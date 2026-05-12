@@ -12,11 +12,11 @@ public class SeaweedTrigger : MonoBehaviour
     }
 
 // take controller input and enable animation
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.enabled = true;
-        }
-    }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         animator.enabled = true;
+    //     }
+    // }
 }

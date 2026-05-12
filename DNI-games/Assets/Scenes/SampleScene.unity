@@ -563,7 +563,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411295347}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -624,6 +624,57 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.07, y: 0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &441455440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 441455442}
+  - component: {fileID: 441455441}
+  m_Layer: 0
+  m_Name: FishSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &441455441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441455440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76460561a75a4ad68a8d6af7e4a32e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FishSpawner
+  fishPool:
+  - {fileID: 686453080}
+  - {fileID: 2034158869}
+  - {fileID: 1295015218}
+  - {fileID: 1454955362}
+  - {fileID: 447314097}
+  - {fileID: 369372632}
+--- !u!4 &441455442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441455440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.2996, y: -4.7209, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,7 +856,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.63, y: -1.56, z: 0}
-  m_LocalScale: {x: 0.5218482, y: 0.40470144, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.40470144, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1075832374}
@@ -1503,8 +1554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd9a5e2426fa4df3846ce39c69d6661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  speed: 1.5
-  targetDepth: 1.5
+  dropSpeed: 2.5
+  reelSpeed: 3.5
+  targetDepth: 0.5
+  topPosition: 4
 --- !u!212 &821945713
 SpriteRenderer:
   serializedVersion: 2
@@ -1622,7 +1675,7 @@ GameObject:
   - component: {fileID: 1242877190}
   - component: {fileID: 1242877189}
   m_Layer: 0
-  m_Name: FIshingController
+  m_Name: FishingController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1640,7 +1693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f5600329b8042ecbeded2c35533462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishingController
-  hook: {fileID: 821945709}
+  hookMovement: {fileID: 821945712}
+  castThreshold: 7
 --- !u!4 &1242877190
 Transform:
   m_ObjectHideFlags: 0
@@ -2060,35 +2114,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1538259133}
-  - component: {fileID: 1538259132}
+  - component: {fileID: 1538259134}
   m_Layer: 0
-  m_Name: SerialManager
+  m_Name: ArduinoManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1538259132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538259131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0158a4c31d8048e0bc6ebe7e61d0e97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArduinoFishSpawner
-  portName: /dev/tty.usbserial-59690940491
-  baudRate: 9600
-  fishPool:
-  - {fileID: 686453080}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 2034158869}
-  - {fileID: 0}
 --- !u!4 &1538259133
 Transform:
   m_ObjectHideFlags: 0
@@ -2104,6 +2137,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1538259134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538259131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da052f0c204dc4c44999c4b3b5dbd3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArduinoManager
+  portName: /dev/tty.usbserial-59690940491
+  baudRate: 9600
+  fishSpawner: {fileID: 441455441}
+  fishingController: {fileID: 1242877189}
+  hookMovement: {fileID: 821945712}
 --- !u!1 &1616197084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,8 +2439,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -1.3436044, y: 0.29637837}
-  m_Radius: 0.37744153
+  m_Offset: {x: -1.3139867, y: 0.29637837}
+  m_Radius: 0.24954341
 --- !u!114 &1636607865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2591,13 +2641,12 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 1538259133}
   - {fileID: 686453083}
   - {fileID: 2034158872}
   - {fileID: 1631758650}
   - {fileID: 411295349}
   - {fileID: 821945714}
-  - {fileID: 1242877190}
-  - {fileID: 1538259133}
   - {fileID: 1295015223}
   - {fileID: 1454955367}
   - {fileID: 447314102}
@@ -2605,3 +2654,5 @@ SceneRoots:
   - {fileID: 1616197087}
   - {fileID: 193178644}
   - {fileID: 174996018}
+  - {fileID: 441455442}
+  - {fileID: 1242877190}
