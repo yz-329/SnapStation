@@ -36,6 +36,9 @@ public class HookCatch : MonoBehaviour
             {
                 Vector3 offset = fish.position - mouth.position;
                 fish.position = transform.position + offset;
+            } else
+            {
+                fish.position = transform.position; 
             }
             // Tell hook to move upward
             hookMovement.ReturnUp();
