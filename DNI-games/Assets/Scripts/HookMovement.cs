@@ -2,57 +2,72 @@ using UnityEngine;
 
 public class HookMovement : MonoBehaviour
 {
-    [Header("Movement")]
     public float dropSpeed = 2.5f;
     public float reelSpeed = 3.5f;
 
-    [Header("Depth")]
     public float targetDepth = 0f;
     public float topPosition = 4f;
 
     private bool dropping = false;
-    private bool reachedDepth = false;
+    private bool reeling = false;
 
     void Update()
     {
-        HandleDrop();
+        if (dropping)
+        {
+            HandleDrop();
+        }
+
+        if (reeling)
+        {
+            HandleReel();
+        }
     }
 
     void HandleDrop()
     {
-        if (!dropping) return;
-
         transform.Translate(Vector2.down * dropSpeed * Time.deltaTime);
 
         if (transform.position.y <= targetDepth)
         {
             dropping = false;
-            reachedDepth = true;
         }
     }
 
-    // Called when accelerometer detects cast
+    void HandleReel()
+    {
+        transform.Translate(Vector2.up * reelSpeed * Time.deltaTime);
+
+        if (transform.position.y >= topPosition)
+        {
+            reeling = false;
+            gameObject.SetActive(false);
+        }
+    }
+
     public void StartDrop()
     {
         dropping = true;
-        reachedDepth = false;
+        reeling = false;
     }
 
-    // Joystick reeling
+    // CALL THIS when fish is caught OR joystick engaged
+    public void StartReel()
+    {
+        reeling = true;
+        dropping = false;
+    }
+
     public void ProcessJoystick(int joyValue)
     {
-        // Debug.Log("JOY: " + joyValue + " | reachedDepth: " + reachedDepth);
-
-        // if (!reachedDepth) return;
-
         if (joyValue > 3000)
         {
-            transform.Translate(Vector2.up * reelSpeed * Time.deltaTime);
+            StartReel();
+        }
 
-            if (transform.position.y >= topPosition)
-            {
-                gameObject.SetActive(false);
-            }
+        if (joyValue < 3000)
+        {
+            reeling = false;
         }
     }
 }
