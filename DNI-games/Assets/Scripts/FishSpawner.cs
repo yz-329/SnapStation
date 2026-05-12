@@ -111,7 +111,7 @@ public class FishSpawner : MonoBehaviour
             selectedFish.transform.position =
                 new Vector3(
                     Random.Range(-6f, 6f),
-                    Random.Range(-4f, 4f),
+                    Random.Range(-3f, 3f),
                     0
                 );
         }
