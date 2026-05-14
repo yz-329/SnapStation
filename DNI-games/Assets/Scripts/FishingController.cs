@@ -3,12 +3,19 @@ using UnityEngine;
 public class FishingController : MonoBehaviour
 {
     public HookMovement hookMovement;
+    public GameObject hook;
+    private AudioSource hookAudio;
 
     [Header("Cast Detection")]
     public float castThreshold = 7f;
 
     private float lastAccelY = 0f;
     private bool castTriggered = false;
+
+    void Start()
+    {
+        hookAudio = hook.GetComponent<AudioSource>();
+    }
 
     public void ProcessAccelY(float accelY)
     {
@@ -34,5 +41,6 @@ public class FishingController : MonoBehaviour
     {
         hookMovement.gameObject.SetActive(true);
         hookMovement.StartDrop();
+        hookAudio?.Play();
     }
 }

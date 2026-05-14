@@ -1921,6 +1921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishingController
   hookMovement: {fileID: 821945712}
+  hook: {fileID: 821945709}
   castThreshold: 7
 --- !u!4 &1242877190
 Transform:
@@ -2981,3 +2982,4 @@ SceneRoots:
   - {fileID: 174996018}
   - {fileID: 441455442}
   - {fileID: 1242877190}
+  - {fileID: 63301492}
