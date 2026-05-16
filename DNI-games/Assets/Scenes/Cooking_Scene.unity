@@ -316,6 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfd47688ed0348d3840cca704e9cc30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  basketPos: {fileID: 628596030}
+  boardPos: {fileID: 1433893600}
+  moveSpeed: 5
+  cameraSlide: {fileID: 0}
 --- !u!1 &951493365
 GameObject:
   m_ObjectHideFlags: 0
