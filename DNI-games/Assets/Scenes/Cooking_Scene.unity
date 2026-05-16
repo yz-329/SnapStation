@@ -318,12 +318,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   basketPos: {fileID: 628596030}
   boardPos: {fileID: 1433893600}
-  potPos: {fileID: 0}
+  potPos: {fileID: 2027831229}
+  platePos: {fileID: 906416506}
   moveSpeed: 5
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 9ad4310135b214420b762a95fe409eb6, type: 3}
   twoPieceSprite: {fileID: -3345519582987510318, guid: 895df2926b1ee4bafa23e7d43b410d07, type: 3}
   fourPieceSprite: {fileID: 6846184622647919380, guid: 145d84888b95648eb810e7cb00464ccb, type: 3}
+  jamSprite: {fileID: -359888788456632764, guid: f6d7ae302dc6a4fc793a74eb2b8ed65b, type: 3}
+  cakeSprite: {fileID: -1089141067269522413, guid: a50a1351987a34ef0b08f4347699174f, type: 3}
+--- !u!1 &906416505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 906416506}
+  m_Layer: 0
+  m_Name: PlatePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &906416506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906416505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.71, y: 0.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &951493365
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +505,7 @@ Transform:
   m_GameObject: {fileID: 1433893599}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.32, y: 0.43, z: 0}
+  m_LocalPosition: {x: 4.29, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -654,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 2027831228}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.7836, y: 0.07094, z: 0}
+  m_LocalPosition: {x: 12.98, y: 0.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -673,3 +707,4 @@ SceneRoots:
   - {fileID: 628596030}
   - {fileID: 729259389}
   - {fileID: 2027831229}
+  - {fileID: 906416506}

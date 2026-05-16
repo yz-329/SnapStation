@@ -6,6 +6,7 @@ public class FoodController : MonoBehaviour
     public Transform basketPos;
     public Transform boardPos;
     public Transform potPos;
+    public Transform platePos;
 
     public float moveSpeed = 5f;
 
@@ -15,6 +16,7 @@ public class FoodController : MonoBehaviour
     public Sprite twoPieceSprite;
     public Sprite fourPieceSprite;
     public Sprite jamSprite;
+    public Sprite cakeSprite;
     private SpriteRenderer sr;
     private Vector3 originalPotPosition;
 
@@ -35,7 +37,7 @@ public class FoodController : MonoBehaviour
 
     void Update()
     {
-        // SPACE = spawn
+        // here takes UID input and food appears in basket
         if (Input.GetKeyDown(KeyCode.Space) && !hasAppeared)
         {
             gameObject.SetActive(true);
@@ -44,27 +46,27 @@ public class FoodController : MonoBehaviour
             hasAppeared = true;
         }
 
-        // A = move to board + camera to CamPos2
+        // A = takes input and moves food to chopping board
         if (Input.GetKeyDown(KeyCode.A) && hasAppeared && !onBoard)
         {
             isMoving = true;
             cameraSlide.MoveToStep(1);
         }
         
-        // take the input and chop food on board
+        // take the hand movement input and chop food on board
         else if (Input.GetKeyDown(KeyCode.Space) && onBoard && !onPot)
         {
             ChopFood();
         }
 
-        // W = move to pot + camera to CamPos3
-        if (Input.GetKeyDown(KeyCode.W) && chopStage == 2 && onBoard && !onPot)
+        // After chopping, move to pot and camera to CamPos3
+        if (chopStage == 2 && onBoard && !onPot)
         {
             isMoving = true;
             cameraSlide.MoveToStep(2);
         }
 
-        // D = transform into jam in pot
+        // Take the joystick input and transform into jam in pot
         if (Input.GetKeyDown(KeyCode.D) && onPot && !isTransforming)
         {
             StartCoroutine(TransformToJam());
@@ -158,5 +160,26 @@ public class FoodController : MonoBehaviour
         sr.color = Color.white;
 
         isTransforming = false;
+        yield return new WaitForSeconds(5f);
+
+        MakeCake();
+    }
+    void MakeCake()
+    {
+        // hide jam in pot
+        sr.enabled = false;
+
+        // create cake object
+        GameObject cake = new GameObject("Cake");
+
+        SpriteRenderer cakeSr = cake.AddComponent<SpriteRenderer>();
+
+        cakeSr.sprite = cakeSprite;
+
+        // place cake on plate
+        cake.transform.position = platePos.position;
+
+        // optional visual order
+        cakeSr.sortingOrder = 10;
     }
 }
