@@ -661,7 +661,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a1be46354d048f3904b2b09e59c3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraSlide
-  cameraPositions: []
+  cameraPositions:
+  - {fileID: 456204567}
+  - {fileID: 1087621011}
+  - {fileID: 447981301}
   slideSpeed: 2
 --- !u!1 &2027831228
 GameObject:
