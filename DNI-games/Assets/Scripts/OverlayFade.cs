@@ -6,23 +6,26 @@ public class OverlayFade : MonoBehaviour
     public Image overlayImage;
     public Image specialImage;
 
-    public float fadeSpeed = 1f;
+    public float fadeSpeed = 2f;
 
     private bool isDark = false;
 
+    private float overlayTarget;
+    private float imageTarget;
+
+    public void ToggleSwitch()
+    {
+        isDark = !isDark;
+
+        overlayTarget = isDark ? 0.5f : 0f;
+        imageTarget = isDark ? 0.5f : 0f;
+
+        Debug.Log("Toggle pressed");
+    }
+
     void Update()
     {
-        // Take button input and trigger the overlay effect (I used Space here)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isDark = !isDark;
-        }
-
-        // TARGET VALUES
-        float overlayTarget = isDark ? 0.5f : 0f;
-        float imageTarget = isDark ? 0.5f : 0f;
-
-        // OVERLAY FADE
+        // Fade overlay
         Color overlayColor = overlayImage.color;
         overlayColor.a = Mathf.Lerp(
             overlayColor.a,
@@ -31,13 +34,9 @@ public class OverlayFade : MonoBehaviour
         );
         overlayImage.color = overlayColor;
 
-        // SPECIAL IMAGE FADE
+        // Button state replacement image
         Color imageColor = specialImage.color;
-        imageColor.a = Mathf.Lerp(
-            imageColor.a,
-            imageTarget,
-            fadeSpeed * Time.deltaTime
-        );
+        imageColor.a = imageTarget;
         specialImage.color = imageColor;
     }
 }

@@ -2795,6 +2795,7 @@ MonoBehaviour:
   fishSpawner: {fileID: 441455441}
   fishingController: {fileID: 1242877189}
   hookMovement: {fileID: 821945712}
+  overlayFade: {fileID: 761205050}
 --- !u!1 &1616197084
 GameObject:
   m_ObjectHideFlags: 0

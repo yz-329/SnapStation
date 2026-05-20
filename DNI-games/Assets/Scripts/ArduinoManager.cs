@@ -11,6 +11,7 @@ public class ArduinoManager : MonoBehaviour
     public FishSpawner fishSpawner;
     public FishingController fishingController;
     public HookMovement hookMovement;
+    public OverlayFade overlayFade;
 
     private SerialPort serialPort;
 
@@ -80,6 +81,19 @@ public class ArduinoManager : MonoBehaviour
                 if (int.TryParse(valueStr, out int joyValue))
                 {
                     hookMovement.ProcessJoystick(joyValue);
+                }
+            }
+
+            // =========================
+            // JOYSTICK REELING
+            // =========================
+            else if (data.StartsWith("BUTTON:"))
+            {
+                string valueStr = data.Replace("BUTTON:", "").Trim();
+
+                if (valueStr == "yes")
+                {
+                    overlayFade.ToggleSwitch();
                 }
             }
         }
