@@ -5,6 +5,7 @@ public class OverlayFade : MonoBehaviour
 {
     public Image overlayImage;
     public Image specialImage;
+    public AudioSource clickAudio;
 
     public float fadeSpeed = 1f;
 
@@ -12,6 +13,7 @@ public class OverlayFade : MonoBehaviour
 
     void Update()
     {
+        clickAudio.PlayOneShot(clickAudio.clip);
         // Take button input and trigger the overlay effect (I used Space here)
         if (Input.GetKeyDown(KeyCode.Space))
         {
