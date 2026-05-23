@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OverlayFade
   overlayImage: {fileID: 761205051}
-  specialImage: {fileID: 626264340}
+  specialImage: {fileID: 414009925}
   fadeSpeed: 1
 --- !u!114 &761205051
 MonoBehaviour:
