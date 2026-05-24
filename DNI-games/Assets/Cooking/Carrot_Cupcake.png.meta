@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 6250422ef363d46e3813b07af1d8686e
+guid: 212e69053e6eb43d183c17842893af90
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 444110630337566433
-    second: Cooking Background Placeholder_0
+      213: -8056550357881878895
+    second: Carrot_Cupcake_0
+  - first:
+      213: -703707249690092826
+    second: Carrot_Cupcake_1
+  - first:
+      213: -7040836518175890751
+    second: Carrot_Cupcake_2
+  - first:
+      213: -260304324048124930
+    second: Carrot_Cupcake_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 107
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cooking Background Placeholder_0
+      name: Carrot_Cupcake_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 3840
-        height: 1080
+        x: 3552
+        y: 853
+        width: 6
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e6de3ae34cc92600800000000000000
-      internalID: 444110630337566433
+      spriteID: 196876b8222613090800000000000000
+      internalID: -8056550357881878895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Carrot_Cupcake_1
+      rect:
+        serializedVersion: 2
+        x: 3171
+        y: 470
+        width: 223
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eada5c1cfdeb36f0800000000000000
+      internalID: -703707249690092826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Carrot_Cupcake_2
+      rect:
+        serializedVersion: 2
+        x: 3340
+        y: 697
+        width: 135
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c2278c9d7ce94e90800000000000000
+      internalID: -7040836518175890751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Carrot_Cupcake_3
+      rect:
+        serializedVersion: 2
+        x: 3097
+        y: 322
+        width: 111
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef30d9fa896336cf0800000000000000
+      internalID: -260304324048124930
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cooking Background Placeholder_0: 444110630337566433
+      Carrot_Cupcake_0: -8056550357881878895
+      Carrot_Cupcake_1: -703707249690092826
+      Carrot_Cupcake_2: -7040836518175890751
+      Carrot_Cupcake_3: -260304324048124930
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
