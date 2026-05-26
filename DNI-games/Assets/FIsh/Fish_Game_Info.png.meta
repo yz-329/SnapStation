@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 6bd49d196df934b66b61c579461a62ce
+guid: c203293c09641410c8662043a9b2fde9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4905866266625771809
-    second: Info_Text_0
-  - first:
-      213: 8687697264141736081
-    second: Info_Text_1
-  - first:
-      213: -8559493913195612872
-    second: Info_Text_2
-  - first:
-      213: 6109399746981536081
-    second: Info_Text_3
+      213: -7785912962088814481
+    second: Fish_Game_Info_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Info_Text_0
+      name: Fish_Game_Info_0
       rect:
         serializedVersion: 2
-        x: 975
-        y: 971
-        width: 219
-        height: 52
+        x: 123
+        y: 79
+        width: 1650
+        height: 929
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,74 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1290dc98063251440800000000000000
-      internalID: 4905866266625771809
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Info_Text_1
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 967
-        width: 52
-        height: 75
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1981d41e1a6e09870800000000000000
-      internalID: 8687697264141736081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Info_Text_2
-      rect:
-        serializedVersion: 2
-        x: 1256
-        y: 978
-        width: 374
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8357bd6d2a1963980800000000000000
-      internalID: -8559493913195612872
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Info_Text_3
-      rect:
-        serializedVersion: 2
-        x: 1627
-        y: 978
-        width: 244
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 15122bd63b2f8c450800000000000000
-      internalID: 6109399746981536081
+      spriteID: f68369a9961e2f390800000000000000
+      internalID: -7785912962088814481
       vertices: []
       indices: 
       edges: []
@@ -213,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Info_Text_0: 4905866266625771809
-      Info_Text_1: 8687697264141736081
-      Info_Text_2: -8559493913195612872
-      Info_Text_3: 6109399746981536081
+      Fish_Game_Info_0: -7785912962088814481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
