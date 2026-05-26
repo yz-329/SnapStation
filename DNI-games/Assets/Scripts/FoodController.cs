@@ -17,6 +17,10 @@ public class FoodController : MonoBehaviour
     public Sprite fourPieceSprite;
     public Sprite jamSprite;
     public Sprite cakeSprite;
+
+    public AudioSource audioSource;
+    public AudioClip moveSound;
+    public AudioClip chopSound;
     private SpriteRenderer sr;
     private Vector3 originalPotPosition;
 
@@ -49,6 +53,7 @@ public class FoodController : MonoBehaviour
         // A = takes input and moves food to chopping board
         if (Input.GetKeyDown(KeyCode.A) && hasAppeared && !onBoard)
         {
+            audioSource.PlayOneShot(moveSound);
             isMoving = true;
             cameraSlide.MoveToStep(1);
         }
@@ -62,6 +67,7 @@ public class FoodController : MonoBehaviour
         // After chopping, move to pot and camera to CamPos3
         if (chopStage == 2 && onBoard && !onPot)
         {
+            audioSource.PlayOneShot(moveSound);
             isMoving = true;
             cameraSlide.MoveToStep(2);
         }
@@ -103,6 +109,8 @@ public class FoodController : MonoBehaviour
 
     void ChopFood()
     {
+        audioSource.PlayOneShot(chopSound);
+
         chopStage++;
 
         if (chopStage == 1)
