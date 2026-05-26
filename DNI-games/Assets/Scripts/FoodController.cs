@@ -22,6 +22,7 @@ public class FoodController : MonoBehaviour
     public AudioClip moveSound;
     public AudioClip chopSound;
     public AudioClip stirSound;
+    public AudioClip cakeSound;
     private SpriteRenderer sr;
     private Vector3 originalPotPosition;
 
@@ -186,5 +187,7 @@ public class FoodController : MonoBehaviour
 
         // optional visual order
         cakeSr.sortingOrder = 10;
+
+        audioSource.PlayOneShot(cakeSound);
     }
 }
