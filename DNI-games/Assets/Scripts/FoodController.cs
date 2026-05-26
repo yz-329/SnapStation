@@ -157,7 +157,7 @@ public class FoodController : MonoBehaviour
 
             float progress = t / duration;
 
-            // fade effect (optional: adjust as you like)
+            // fade effect 
             float alpha = Mathf.Lerp(0f, 1f, progress);
             sr.color = new Color(1f, 1f, 1f, alpha);
 
