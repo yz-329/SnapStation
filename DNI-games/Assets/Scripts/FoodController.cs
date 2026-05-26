@@ -18,6 +18,11 @@ public class FoodController : MonoBehaviour
     public Sprite jamSprite;
     public Sprite cakeSprite;
 
+    public GameObject instruction_1;
+    public GameObject instruction_2;
+    public GameObject instruction_3;
+    public GameObject instruction_4;
+
     public AudioSource audioSource;
     public AudioClip moveSound;
     public AudioClip chopSound;
@@ -50,11 +55,14 @@ public class FoodController : MonoBehaviour
             transform.position = basketPos.position;
             sr.sprite = wholeSprite;
             hasAppeared = true;
+
+            instruction_1.SetActive(true);
         }
 
         // A = takes input and moves food to chopping board
         if (Input.GetKeyDown(KeyCode.A) && hasAppeared && !onBoard)
         {
+            instruction_1.SetActive(false);
             audioSource.PlayOneShot(moveSound);
             isMoving = true;
             cameraSlide.MoveToStep(1);
@@ -69,8 +77,8 @@ public class FoodController : MonoBehaviour
         // After chopping, move to pot and camera to CamPos3
         if (chopStage == 2 && onBoard && !onPot)
         {
-            audioSource.PlayOneShot(moveSound);
             isMoving = true;
+            audioSource.PlayOneShot(moveSound);
             cameraSlide.MoveToStep(2);
         }
 
@@ -99,10 +107,12 @@ public class FoodController : MonoBehaviour
                 if (!onBoard && !onPot)
                 {
                     onBoard = true;
+                    instruction_2.SetActive(true);
                 }
                 else if (!onPot)
                 {
                     onPot = true; 
+                    instruction_3.SetActive(true);
                 }
             }
         }
@@ -112,6 +122,7 @@ public class FoodController : MonoBehaviour
     void ChopFood()
     {
         audioSource.PlayOneShot(chopSound);
+        instruction_2.SetActive(false);
 
         chopStage++;
 
@@ -132,6 +143,7 @@ public class FoodController : MonoBehaviour
         // START SOUND
         audioSource.clip = stirSound;
         audioSource.Play();
+        instruction_3.SetActive(false);
 
         float duration = 5f; // FULL transformation time
         float t = 0f;
@@ -189,5 +201,6 @@ public class FoodController : MonoBehaviour
         cakeSr.sortingOrder = 10;
 
         audioSource.PlayOneShot(cakeSound);
+        instruction_4.SetActive(true);
     }
 }
