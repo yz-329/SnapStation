@@ -241,6 +241,7 @@ MonoBehaviour:
   audioSource: {fileID: 555505356}
   moveSound: {fileID: 8300000, guid: b21fb3f2bf72647ebad479ce249d149b, type: 3}
   chopSound: {fileID: 8300000, guid: 3ebabc6b59a0c45b3b40318e1317c23e, type: 3}
+  stirSound: {fileID: 8300000, guid: 45900fc1606c744299f93308cfbe17e9, type: 3}
 --- !u!212 &555505355
 SpriteRenderer:
   serializedVersion: 2
@@ -547,6 +548,7 @@ MonoBehaviour:
   audioSource: {fileID: 729259391}
   moveSound: {fileID: 8300000, guid: b21fb3f2bf72647ebad479ce249d149b, type: 3}
   chopSound: {fileID: 8300000, guid: 3ebabc6b59a0c45b3b40318e1317c23e, type: 3}
+  stirSound: {fileID: 8300000, guid: 45900fc1606c744299f93308cfbe17e9, type: 3}
 --- !u!82 &729259391
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1017,6 +1019,7 @@ MonoBehaviour:
   audioSource: {fileID: 1645156777}
   moveSound: {fileID: 8300000, guid: b21fb3f2bf72647ebad479ce249d149b, type: 3}
   chopSound: {fileID: 8300000, guid: 3ebabc6b59a0c45b3b40318e1317c23e, type: 3}
+  stirSound: {fileID: 8300000, guid: 45900fc1606c744299f93308cfbe17e9, type: 3}
 --- !u!212 &1645156776
 SpriteRenderer:
   serializedVersion: 2
@@ -1404,6 +1407,7 @@ MonoBehaviour:
   audioSource: {fileID: 2069703468}
   moveSound: {fileID: 8300000, guid: b21fb3f2bf72647ebad479ce249d149b, type: 3}
   chopSound: {fileID: 8300000, guid: 3ebabc6b59a0c45b3b40318e1317c23e, type: 3}
+  stirSound: {fileID: 8300000, guid: 45900fc1606c744299f93308cfbe17e9, type: 3}
 --- !u!212 &2069703466
 SpriteRenderer:
   serializedVersion: 2

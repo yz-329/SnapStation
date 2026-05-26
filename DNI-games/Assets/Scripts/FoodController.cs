@@ -21,6 +21,7 @@ public class FoodController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip moveSound;
     public AudioClip chopSound;
+    public AudioClip stirSound;
     private SpriteRenderer sr;
     private Vector3 originalPotPosition;
 
@@ -127,49 +128,45 @@ public class FoodController : MonoBehaviour
     {
         isTransforming = true;
 
-        float duration = 1f;
+        // START SOUND
+        audioSource.clip = stirSound;
+        audioSource.Play();
+
+        float duration = 5f; // FULL transformation time
         float t = 0f;
 
         Vector3 startPos = potPos.position;
 
-        // SHAKE + FADE OUT
+        // TRANSFORMATION LOOP (5 seconds total)
         while (t < duration)
         {
             t += Time.deltaTime;
 
-            float alpha = 1f - (t / duration);
+            float progress = t / duration;
+
+            // fade effect (optional: adjust as you like)
+            float alpha = Mathf.Lerp(0f, 1f, progress);
             sr.color = new Color(1f, 1f, 1f, alpha);
 
-            // pot shake effect (small random offset)
+            // shake pot
             potPos.position = startPos + (Vector3)Random.insideUnitCircle * 0.05f;
 
             yield return null;
         }
 
-        // reset pot position after shake
+        // reset pot position
         potPos.position = originalPotPosition;
 
-        // switch sprite to jam
+        // switch sprite to jam at end
         sr.sprite = jamSprite;
-
-        // FADE IN
-        t = 0f;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-
-            float alpha = t / duration;
-            sr.color = new Color(1f, 1f, 1f, alpha);
-
-            yield return null;
-        }
-
         sr.color = Color.white;
 
-        isTransforming = false;
-        yield return new WaitForSeconds(5f);
+        // STOP SOUND
+        audioSource.Stop();
 
+        isTransforming = false;
+
+        // spawn cake
         MakeCake();
     }
     void MakeCake()
