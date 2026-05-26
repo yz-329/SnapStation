@@ -18,6 +18,7 @@ public class FoodController : MonoBehaviour
     public Sprite jamSprite;
     public Sprite cakeSprite;
 
+    public GameObject introScreen;
     public GameObject instruction_1;
     public GameObject instruction_2;
     public GameObject instruction_3;
@@ -29,6 +30,8 @@ public class FoodController : MonoBehaviour
     public AudioClip stirSound;
     public AudioClip cakeSound;
     private SpriteRenderer sr;
+
+    private bool gameStarted = false;
     private Vector3 originalPotPosition;
 
     private bool isMoving = false;
@@ -50,7 +53,8 @@ public class FoodController : MonoBehaviour
     {
         // here takes UID input and food appears in basket
         if (Input.GetKeyDown(KeyCode.Space) && !hasAppeared)
-        {
+        {   
+            introScreen.SetActive(false);
             gameObject.SetActive(true);
             transform.position = basketPos.position;
             sr.sprite = wholeSprite;
