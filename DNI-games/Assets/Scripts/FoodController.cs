@@ -24,11 +24,15 @@ public class FoodController : MonoBehaviour
     public GameObject instruction_3;
     public GameObject instruction_4;
 
+    public GameObject photoFrame;
+    public SpriteRenderer photoCakeRenderer;
+
     public AudioSource audioSource;
     public AudioClip moveSound;
     public AudioClip chopSound;
     public AudioClip stirSound;
     public AudioClip cakeSound;
+    public AudioClip cameraSound;
     private SpriteRenderer sr;
 
     private bool gameStarted = false;
@@ -41,6 +45,9 @@ public class FoodController : MonoBehaviour
 
     private int chopStage = 0;
     private bool isTransforming = false;
+    private Sprite currentCakeSprite;
+    private bool cakeReady = false;
+    private bool photoTaken = false;
 
     void Start()
     {
@@ -121,6 +128,12 @@ public class FoodController : MonoBehaviour
             }
         }
 
+        // Take input and take photo
+        if (cakeReady && !photoTaken && Input.GetKeyDown(KeyCode.Space))
+        {
+            TakePhoto();
+        }
+
     }
 
     void ChopFood()
@@ -197,6 +210,7 @@ public class FoodController : MonoBehaviour
         SpriteRenderer cakeSr = cake.AddComponent<SpriteRenderer>();
 
         cakeSr.sprite = cakeSprite;
+        currentCakeSprite = cakeSprite;
 
         // place cake on plate
         cake.transform.position = platePos.position;
@@ -206,5 +220,18 @@ public class FoodController : MonoBehaviour
 
         audioSource.PlayOneShot(cakeSound);
         instruction_4.SetActive(true);
+        cakeReady = true;
+    }
+
+    void TakePhoto()
+    {
+        photoTaken = true;
+        // StartCoroutine(CameraFlash());
+
+        audioSource.PlayOneShot(cameraSound);
+
+        photoFrame.SetActive(true);
+
+        photoCakeRenderer.sprite = currentCakeSprite;
     }
 }
