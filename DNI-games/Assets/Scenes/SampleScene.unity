@@ -2117,6 +2117,7 @@ MonoBehaviour:
   overlayFade: {fileID: 0}
   sceneSwitcher: {fileID: 0}
   fruitSpawner: {fileID: 0}
+  introScreen: {fileID: 0}
 --- !u!1 &1075832373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2642,6 +2643,7 @@ MonoBehaviour:
   overlayFade: {fileID: 761205050}
   sceneSwitcher: {fileID: 1039667614}
   fruitSpawner: {fileID: 0}
+  introScreen: {fileID: 261603245}
 --- !u!1 &1616197084
 GameObject:
   m_ObjectHideFlags: 0

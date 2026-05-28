@@ -15,6 +15,7 @@ public class ArduinoManager : MonoBehaviour
     public OverlayFade overlayFade;
     public SceneSwitcher sceneSwitcher;
     public FruitSpawner fruitSpawner;
+    public GameObject introScreen;
 
     private SerialPort serialPort;
 
@@ -49,10 +50,19 @@ public class ArduinoManager : MonoBehaviour
             {
                 if (data.StartsWith("UID:"))
                 {
+                    if (introScreen != null) 
+                    {
+                        SpriteRenderer introSr = introScreen.GetComponent<SpriteRenderer>();
+                        if (introSr != null)
+                        {
+                            introSr.enabled = false;
+                        }
+                    }
+                    
+                    Debug.Log(data);
                     string uid = data.Replace("UID:", "").Trim();
-                    uid = uid.Replace(" ", ""); // REMOVE SPACES
 
-                    fruitSpawner.ActivateFruit(uid);
+                    fishSpawner.ProcessNFCData(uid);
                 }
 
                 else if (data.StartsWith("FORCE:"))
