@@ -41,7 +41,7 @@ public class ArduinoManager : MonoBehaviour
         {
             string data = serialPort.ReadLine().Trim();
 
-            Debug.Log(data);
+            // Debug.Log(data);
 
             // =========================
             // NFC

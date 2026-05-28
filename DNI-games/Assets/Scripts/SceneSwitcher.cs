@@ -5,7 +5,7 @@ using System.IO.Ports;
 public class SceneSwitcher : MonoBehaviour
 {
     [Header("Serial Settings")]
-    public string portName = "/dev/tty.usbmodem1101";
+    public string portName = "/dev/tty.usbmodem1201";
     public int baudRate = 9600;
 
     private SerialPort serialPort;

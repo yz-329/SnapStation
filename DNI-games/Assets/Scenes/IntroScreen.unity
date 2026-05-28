@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f35c24b017d4b08a1e8de6a9b6100c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSwitcher
-  portName: /dev/tty.usbmodem1101
+  portName: /dev/tty.usbmodem1201
   baudRate: 9600
 --- !u!114 &2014771465
 MonoBehaviour:
