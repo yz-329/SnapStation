@@ -65,10 +65,22 @@ public class SceneSwitcher : MonoBehaviour
 
     public void ProcessSceneSwitch(int sceneState)
     {
-        // Prevent reloading same scene
+        // If the same cartridge is pressed again (spring mechanism pops it out)
         if (sceneState == currentSceneState)
-            return;
+        {
+            // If we are already on the Intro screen (0), just ignore it so it doesn't reload infinitely
+            if (currentSceneState == 0) 
+                return;
 
+            Debug.Log("Cartridge popped out! Returning to Intro.");
+            
+            // Reset internal state to Intro
+            currentSceneState = 0; 
+            SceneManager.LoadScene("IntroScreen");
+            return;
+        }
+
+        // Otherwise, load the new scene normally
         currentSceneState = sceneState;
 
         Debug.Log("Switching Scene: " + sceneState);
@@ -87,9 +99,7 @@ public class SceneSwitcher : MonoBehaviour
                 SceneManager.LoadScene("SampleScene");
                 break;
         }
-    }
-
-    void OnApplicationQuit()
+    }    void OnApplicationQuit()
     {
         if (serialPort != null && serialPort.IsOpen)
         {
