@@ -5,41 +5,52 @@ using System.Collections;
 public class FruitSpawner : MonoBehaviour
 {
     public List<FoodController> fruits;
-    
-    // Track the active fruit so the ArduinoManager can send inputs to it
     public FoodController activeFruit; 
+    
+    // NEW: Track where we are in the list
+    private int currentIndex = 0; 
 
     public void ActivateFruit(string uid)
     {
         Debug.Log("UID received: " + uid);
-
         string cleanUid = uid.Replace(" ", "").Trim();
         int seed = int.Parse(cleanUid, System.Globalization.NumberStyles.HexNumber);
         Random.InitState(seed);
 
-        int index = Random.Range(0, fruits.Count);
+        // Set the initial index based on the scan
+        currentIndex = Random.Range(0, fruits.Count);
 
-        // Turn everything off
         foreach (var fruit in fruits)
             fruit.gameObject.SetActive(false);
 
-        // Assign the new active fruit and TURN IT ON
-        activeFruit = fruits[index];
+        activeFruit = fruits[currentIndex];
         activeFruit.gameObject.SetActive(true); 
 
-        // IMPORTANT: wait 1 frame before resetting
-        StartCoroutine(InitFruit(activeFruit, index, uid));
+        StartCoroutine(InitFruit(activeFruit, currentIndex, uid));
+    }
+
+    // NEW: Call this to go to the next fruit without scanning
+    public void SpawnNextFruit()
+    {
+        // Turn off the old fruit
+        if (activeFruit != null)
+            activeFruit.gameObject.SetActive(false);
+
+        // Move to the next index. The '%' symbol makes it loop back to 0 if we hit the end of the list!
+        currentIndex = (currentIndex + 1) % fruits.Count;
+        
+        activeFruit = fruits[currentIndex];
+        activeFruit.gameObject.SetActive(true); 
+
+        // Pass a fake UID so ProcessInput triggers the basket drop logic
+        StartCoroutine(InitFruit(activeFruit, currentIndex, "AUTO_LOOP"));
     }
 
     IEnumerator InitFruit(FoodController fruit, int index, string uid)
     {
-        yield return null; // wait Unity activation
-
+        yield return null; 
         fruit.ResetState();
-        
-        // Pass the UID string down to trigger the visual setup in the basket
         fruit.ProcessInput("UID:" + uid);
-
         Debug.Log("Activated fruit index: " + index);
     }
 }
