@@ -1,8 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using System.IO.Ports;
 
 public class FoodController : MonoBehaviour
 {
+    [Header("Serial Settings")]
+    public string portName = "/dev/tty.usbserial-59690940491";
+    public int baudRate = 9600;
+    private SerialPort serialPort;
     public Transform basketPos;
     public Transform boardPos;
     public Transform potPos;
@@ -54,12 +59,33 @@ public class FoodController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         originalPotPosition = potPos.position;
         gameObject.SetActive(false);
+
+        serialPort = new SerialPort(portName, baudRate);
+        serialPort.ReadTimeout = 50;
+
+        try
+        {
+            serialPort.Open();
+            Debug.Log("Serial Port Opened");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to open serial port: " + e.Message);
+        }
     }
 
     void Update()
     {
-        // here takes UID input and food appears in basket
-        if (Input.GetKeyDown(KeyCode.Space) && !hasAppeared)
+        if (serialPort == null || !serialPort.IsOpen)
+            return;
+
+        try
+        {
+            string data = serialPort.ReadLine().Trim();
+
+                    // here takes UID input and food appears in basket
+        // if (Input.GetKeyDown(KeyCode.Space) && !hasAppeared)
+        if (data.StartsWith("UID:"))
         {   
             introScreen.SetActive(false);
             gameObject.SetActive(true);
@@ -71,7 +97,7 @@ public class FoodController : MonoBehaviour
         }
 
         // A = takes input and moves food to chopping board
-        if (Input.GetKeyDown(KeyCode.A) && hasAppeared && !onBoard)
+        if (data.StartsWith("FLEX:") && hasAppeared && !onBoard)
         {
             instruction_1.SetActive(false);
             audioSource.PlayOneShot(moveSound);
@@ -80,7 +106,7 @@ public class FoodController : MonoBehaviour
         }
         
         // take the hand movement input and chop food on board
-        else if (Input.GetKeyDown(KeyCode.Space) && onBoard && !onPot)
+        else if (data.StartsWith("ACCEL_Y:") && onBoard && !onPot)
         {
             ChopFood();
         }
@@ -94,7 +120,8 @@ public class FoodController : MonoBehaviour
         }
 
         // Take the joystick input and transform into jam in pot
-        if (Input.GetKeyDown(KeyCode.D) && onPot && !isTransforming)
+        // STARR process joystick input
+        if (data.StartsWith("JOY_Y:") && onPot && !isTransforming)
         {
             StartCoroutine(TransformToJam());
         }
@@ -129,10 +156,22 @@ public class FoodController : MonoBehaviour
         }
 
         // Take input and take photo
-        if (cakeReady && !photoTaken && Input.GetKeyDown(KeyCode.Space))
+        if (cakeReady && !photoTaken && data.StartsWith("FORCE:"))
         {
             TakePhoto();
         }
+
+
+        }
+        catch (System.TimeoutException)
+        {
+            // Normal serial timeout
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning(e.Message);
+        }
+
 
     }
 
