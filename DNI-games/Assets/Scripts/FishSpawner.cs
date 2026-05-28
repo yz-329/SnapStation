@@ -23,7 +23,7 @@ public class FishSpawner : MonoBehaviour
 
         if (int.TryParse(valueStr, out int forceValue))
         {
-            Debug.Log("Force Value: " + forceValue);
+            // Debug.Log("Force Value: " + forceValue);
 
             if (forceValue > 60)
             {

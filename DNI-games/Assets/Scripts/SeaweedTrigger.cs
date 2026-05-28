@@ -16,14 +16,14 @@ public class SeaweedTrigger : MonoBehaviour
 // take controller input and enable animation
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.enabled = true;
-            // Play sound once
-            if (seaweedAudio != null)
-            {
-                seaweedAudio.Play();
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     animator.enabled = true;
+        //     // Play sound once
+        //     if (seaweedAudio != null)
+        //     {
+        //         seaweedAudio.Play();
+        //     }
+        // }
     }
 }

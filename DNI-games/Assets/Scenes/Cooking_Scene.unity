@@ -620,6 +620,56 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &677910764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677910766}
+  - component: {fileID: 677910765}
+  m_Layer: 0
+  m_Name: FruitSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &677910765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677910764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0daa50172244285a5fc14b405ab39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FruitSpawner
+  fruits:
+  - {fileID: 729259390}
+  - {fileID: 2069703465}
+  - {fileID: 1645156775}
+  - {fileID: 555505354}
+  activeFruit: {fileID: 0}
+--- !u!4 &677910766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677910764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &729259387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,6 +1264,9 @@ MonoBehaviour:
   fishSpawner: {fileID: 0}
   fishingController: {fileID: 0}
   hookMovement: {fileID: 0}
+  overlayFade: {fileID: 0}
+  sceneSwitcher: {fileID: 0}
+  fruitSpawner: {fileID: 677910765}
 --- !u!1 &1068670595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,8 +1515,7 @@ Transform:
   m_LocalPosition: {x: 5.68, y: 0.1, z: 0}
   m_LocalScale: {x: 1.1834897, y: 1.2295523, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1730611287}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1433893599
@@ -1839,12 +1891,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730611286}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.68, y: 0.1, z: 0}
+  m_LocalScale: {x: 1.1834897, y: 1.2295523, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1149387846}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1730611288
 SpriteRenderer:
@@ -2506,6 +2558,7 @@ SceneRoots:
   - {fileID: 1645156774}
   - {fileID: 555505353}
   - {fileID: 1068670597}
+  - {fileID: 1730611287}
   - {fileID: 1149387846}
   - {fileID: 859942377}
   - {fileID: 923179128}
@@ -2514,3 +2567,4 @@ SceneRoots:
   - {fileID: 640754988}
   - {fileID: 1851482714}
   - {fileID: 1052550745}
+  - {fileID: 677910766}

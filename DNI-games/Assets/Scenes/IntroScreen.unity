@@ -631,7 +631,7 @@ MonoBehaviour:
   fishSpawner: {fileID: 0}
   fishingController: {fileID: 0}
   hookMovement: {fileID: 0}
-  sceneSwitcher: {fileID: 0}
+  sceneSwitcher: {fileID: 2014771464}
 --- !u!4 &2014771466
 Transform:
   m_ObjectHideFlags: 0

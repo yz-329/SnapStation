@@ -12,7 +12,9 @@ public class ArduinoManager : MonoBehaviour
     public FishSpawner fishSpawner;
     public FishingController fishingController;
     public HookMovement hookMovement;
+    public OverlayFade overlayFade;
     public SceneSwitcher sceneSwitcher;
+    public FruitSpawner fruitSpawner;
 
     private SerialPort serialPort;
 
@@ -41,60 +43,79 @@ public class ArduinoManager : MonoBehaviour
         {
             string data = serialPort.ReadLine().Trim();
 
-            // Debug.Log(data);
+            string currentScene = SceneManager.GetActiveScene().name;
 
-            // =========================
-            // NFC
-            // =========================
-            if (data.StartsWith("UID:"))
+            if (currentScene == "SampleScene")
             {
-                fishSpawner.ProcessNFCData(data);
-            }
-
-            // =========================
-            // FORCE SENSOR
-            // =========================
-            else if (data.StartsWith("FORCE:"))
-            {
-                fishSpawner.ProcessForceData(data);
-            }
-
-            // =========================
-            // CAST ACTION
-            // =========================
-            else if (data.StartsWith("ACCEL_Y:"))
-            {
-                string valueStr = data.Replace("ACCEL_Y:", "").Trim();
-
-                if (float.TryParse(valueStr, out float accelY))
+                if (data.StartsWith("UID:"))
                 {
-                    fishingController.ProcessAccelY(accelY);
+                    string uid = data.Replace("UID:", "").Trim();
+                    uid = uid.Replace(" ", ""); // REMOVE SPACES
+
+                    fruitSpawner.ActivateFruit(uid);
+                }
+
+                else if (data.StartsWith("FORCE:"))
+                {
+                    fishSpawner.ProcessForceData(data);
+                }
+
+                else if (data.StartsWith("ACCEL_Y:"))
+                {
+                    string valueStr = data.Replace("ACCEL_Y:", "").Trim();
+
+                    if (float.TryParse(valueStr, out float accelY))
+                    {
+                        fishingController.ProcessAccelY(accelY);
+                    }
+                }
+
+                else if (data.StartsWith("JOY_Y:"))
+                {
+                    string valueStr = data.Replace("JOY_Y:", "").Trim();
+
+                    if (int.TryParse(valueStr, out int joyValue))
+                    {
+                        hookMovement.ProcessJoystick(joyValue);
+                    }
+                }
+
+                else if (data.StartsWith("BUTTON:"))
+                {
+                    string valueStr = data.Replace("BUTTON:", "").Trim();
+
+                    if (valueStr == "yes")
+                    {
+                        overlayFade.ToggleOverlay();
+                    }
+                }
+
+                else if (data.StartsWith("SCENE:"))
+                {
+                    string valueStr = data.Replace("SCENE:", "").Trim();
+
+                    if (int.TryParse(valueStr, out int sceneState))
+                    {
+                        sceneSwitcher.ProcessSceneSwitch(sceneState);
+                    }
                 }
             }
 
-            // =========================
-            // JOYSTICK REELING
-            // =========================
-            else if (data.StartsWith("JOY_Y:"))
+            else if (currentScene == "Cooking_Scene")
             {
-                string valueStr = data.Replace("JOY_Y:", "").Trim();
-
-                if (int.TryParse(valueStr, out int joyValue))
+                if (fruitSpawner != null)
                 {
-                    hookMovement.ProcessJoystick(joyValue);
-                }
-            }
-
-            // =========================
-            // SCENE SWITCHING
-            // =========================
-            else if (data.StartsWith("SCENE:"))
-            {
-                string valueStr = data.Replace("SCENE:", "").Trim();
-
-                if (int.TryParse(valueStr, out int sceneState))
-                {
-                    sceneSwitcher.ProcessSceneSwitch(sceneState);
+                    // 1. Check for NFC Scan
+                    if (data.StartsWith("UID:"))
+                    {
+                        string uid = data.Replace("UID:", "").Trim();
+                        fruitSpawner.ActivateFruit(uid);
+                    }
+                    // 2. Forward ALL OTHER physical inputs to the active fruit
+                    else if (fruitSpawner.activeFruit != null)
+                    {
+                        fruitSpawner.activeFruit.ProcessInput(data);
+                    }
                 }
             }
         }
@@ -104,7 +125,7 @@ public class ArduinoManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogWarning(e.Message);
+            // Debug.LogWarning(e.Message);
         }
     }
 

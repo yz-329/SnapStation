@@ -37,7 +37,7 @@ public class SceneSwitcher : MonoBehaviour
         {
             string data = serialPort.ReadLine().Trim();
 
-            Debug.Log(data);
+            // Debug.Log(data);
 
             // =========================
             // SCENE SWITCHING

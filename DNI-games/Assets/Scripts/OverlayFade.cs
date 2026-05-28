@@ -11,16 +11,17 @@ public class OverlayFade : MonoBehaviour
 
     private bool isDark = false;
 
+    // Called externally from ArduinoManager
+    public void ToggleOverlay()
+    {
+        isDark = !isDark;
+
+        // Play click once
+        clickAudio.PlayOneShot(clickAudio.clip);
+    }
+
     void Update()
     {
-        clickAudio.PlayOneShot(clickAudio.clip);
-        
-        // Take button input and trigger the overlay effect (I used Space here)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isDark = !isDark;
-        }
-
         // TARGET VALUES
         float overlayTarget = isDark ? 0.5f : 0f;
         float imageTarget = isDark ? 0.5f : 0f;
