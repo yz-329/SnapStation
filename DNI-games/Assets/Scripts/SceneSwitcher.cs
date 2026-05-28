@@ -63,7 +63,7 @@ public class SceneSwitcher : MonoBehaviour
         }
     }
 
-    void ProcessSceneSwitch(int sceneState)
+    public void ProcessSceneSwitch(int sceneState)
     {
         // Prevent reloading same scene
         if (sceneState == currentSceneState)

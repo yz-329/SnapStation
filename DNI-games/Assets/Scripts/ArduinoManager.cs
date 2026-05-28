@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO.Ports;
+using UnityEngine.SceneManagement;
 
 public class ArduinoManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ArduinoManager : MonoBehaviour
     public FishSpawner fishSpawner;
     public FishingController fishingController;
     public HookMovement hookMovement;
+    public SceneSwitcher sceneSwitcher;
 
     private SerialPort serialPort;
 
@@ -80,6 +82,19 @@ public class ArduinoManager : MonoBehaviour
                 if (int.TryParse(valueStr, out int joyValue))
                 {
                     hookMovement.ProcessJoystick(joyValue);
+                }
+            }
+
+            // =========================
+            // SCENE SWITCHING
+            // =========================
+            else if (data.StartsWith("SCENE:"))
+            {
+                string valueStr = data.Replace("SCENE:", "").Trim();
+
+                if (int.TryParse(valueStr, out int sceneState))
+                {
+                    sceneSwitcher.ProcessSceneSwitch(sceneState);
                 }
             }
         }
