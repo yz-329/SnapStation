@@ -13,6 +13,7 @@ public class ArduinoManager : MonoBehaviour
     public FishingController fishingController;
     public HookMovement hookMovement;
     public OverlayFade overlayFade;
+    public SeaweedTrigger seaweedTrigger;
     public SceneSwitcher sceneSwitcher;
     public FruitSpawner fruitSpawner;
     public GameObject introScreen;
@@ -58,7 +59,7 @@ public class ArduinoManager : MonoBehaviour
                             introSr.enabled = false;
                         }
                     }
-                    
+
                     Debug.Log(data);
                     string uid = data.Replace("UID:", "").Trim();
 
@@ -87,6 +88,19 @@ public class ArduinoManager : MonoBehaviour
                     if (int.TryParse(valueStr, out int joyValue))
                     {
                         hookMovement.ProcessJoystick(joyValue);
+                    }
+                }
+
+                else if (data.StartsWith("FLEX:"))
+                {
+                    string valueStr = data.Replace("FLEX:", "").Trim();
+
+                    if (int.TryParse(valueStr, out int flexValue))
+                    {
+                        if (flexValue < 800 || flexValue > 3000)
+                        {
+                            seaweedTrigger.Wiggle();
+                        }
                     }
                 }
 
