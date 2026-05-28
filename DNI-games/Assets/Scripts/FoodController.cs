@@ -226,7 +226,6 @@ public class FoodController : MonoBehaviour
     void TakePhoto()
     {
         photoTaken = true;
-        // StartCoroutine(CameraFlash());
 
         audioSource.PlayOneShot(cameraSound);
 
