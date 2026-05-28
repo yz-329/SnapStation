@@ -2114,6 +2114,7 @@ MonoBehaviour:
   fishSpawner: {fileID: 0}
   fishingController: {fileID: 0}
   hookMovement: {fileID: 0}
+  sceneSwitcher: {fileID: 0}
 --- !u!1 &1075832373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2636,6 +2637,7 @@ MonoBehaviour:
   fishSpawner: {fileID: 441455441}
   fishingController: {fileID: 1242877189}
   hookMovement: {fileID: 821945712}
+  sceneSwitcher: {fileID: 1039667614}
 --- !u!1 &1616197084
 GameObject:
   m_ObjectHideFlags: 0
