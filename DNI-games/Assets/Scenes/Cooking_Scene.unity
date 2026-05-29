@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 555505352}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.52287, y: -7.03336, z: 0}
+  m_LocalPosition: {x: 1.84, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,6 +239,7 @@ MonoBehaviour:
   jamSprite: {fileID: 21300000, guid: 2ffa44a80ad034da0a27af20a0eb1313, type: 3}
   cakeSprite: {fileID: 21300000, guid: e3585f6366099445e88dd3e0d2bbb25f, type: 3}
   introScreen: {fileID: 640754987}
+  infoText: {fileID: 0}
   instruction_1: {fileID: 859942375}
   instruction_2: {fileID: 923179126}
   instruction_3: {fileID: 572056318}
@@ -523,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 628596029}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.27, y: 0.41, z: 0}
+  m_LocalPosition: {x: -5.64, y: 0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -757,7 +758,7 @@ Transform:
   m_GameObject: {fileID: 729259387}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: -0.83, z: 0}
+  m_LocalPosition: {x: 0.7, y: -0.75, z: 0}
   m_LocalScale: {x: 0.8347342, y: 0.927128, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -787,6 +788,7 @@ MonoBehaviour:
   jamSprite: {fileID: 21300000, guid: f6d7ae302dc6a4fc793a74eb2b8ed65b, type: 3}
   cakeSprite: {fileID: 21300000, guid: a50a1351987a34ef0b08f4347699174f, type: 3}
   introScreen: {fileID: 640754987}
+  infoText: {fileID: 0}
   instruction_1: {fileID: 859942375}
   instruction_2: {fileID: 923179126}
   instruction_3: {fileID: 572056318}
@@ -1265,8 +1267,10 @@ MonoBehaviour:
   fishingController: {fileID: 0}
   hookMovement: {fileID: 0}
   overlayFade: {fileID: 0}
+  seaweedTrigger: {fileID: 0}
   sceneSwitcher: {fileID: 0}
   fruitSpawner: {fileID: 677910765}
+  introScreen: {fileID: 0}
 --- !u!1 &1068670595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1547,7 @@ Transform:
   m_GameObject: {fileID: 1433893599}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.29, y: 0.27, z: 0}
+  m_LocalPosition: {x: 4.05, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1668,7 +1672,7 @@ Transform:
   m_GameObject: {fileID: 1645156773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.52287, y: -7.03336, z: 0}
+  m_LocalPosition: {x: 1.85, y: -1.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1698,6 +1702,7 @@ MonoBehaviour:
   jamSprite: {fileID: 21300000, guid: bec32418c949e41818e4f733efff5a30, type: 3}
   cakeSprite: {fileID: 21300000, guid: f64220aed62694421bb3b641c97a9d92, type: 3}
   introScreen: {fileID: 640754987}
+  infoText: {fileID: 0}
   instruction_1: {fileID: 859942375}
   instruction_2: {fileID: 923179126}
   instruction_3: {fileID: 572056318}
@@ -2266,6 +2271,7 @@ MonoBehaviour:
   jamSprite: {fileID: 21300000, guid: 3a3908766dc5e4bc88251bde8b67e4c8, type: 3}
   cakeSprite: {fileID: 21300000, guid: 84c8f7beafd8c4b968b5d678f24d6cdf, type: 3}
   introScreen: {fileID: 640754987}
+  infoText: {fileID: 0}
   instruction_1: {fileID: 859942375}
   instruction_2: {fileID: 923179126}
   instruction_3: {fileID: 572056318}
@@ -2327,15 +2333,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 112461642246209916, guid: 07509bedbf352447185228d3da5745ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07509bedbf352447185228d3da5745ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.51, y: 2}
+  m_Size: {x: 38.399998, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &2069703467
 Transform:
@@ -2346,7 +2352,7 @@ Transform:
   m_GameObject: {fileID: 2069703464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.99, y: 0.42, z: 0}
+  m_LocalPosition: {x: 0.87, y: -0.69, z: 0}
   m_LocalScale: {x: 0.834, y: 0.92, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

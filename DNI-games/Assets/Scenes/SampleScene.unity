@@ -2115,6 +2115,7 @@ MonoBehaviour:
   fishingController: {fileID: 0}
   hookMovement: {fileID: 0}
   overlayFade: {fileID: 0}
+  seaweedTrigger: {fileID: 0}
   sceneSwitcher: {fileID: 0}
   fruitSpawner: {fileID: 0}
   introScreen: {fileID: 0}
@@ -2641,6 +2642,7 @@ MonoBehaviour:
   fishingController: {fileID: 1242877189}
   hookMovement: {fileID: 821945712}
   overlayFade: {fileID: 761205050}
+  seaweedTrigger: {fileID: 1616197088}
   sceneSwitcher: {fileID: 1039667614}
   fruitSpawner: {fileID: 0}
   introScreen: {fileID: 261603245}
