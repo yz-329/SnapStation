@@ -6,6 +6,9 @@ public class FishSpawner : MonoBehaviour
     [Header("Fish Pool")]
     public List<GameObject> fishPool;
 
+    [Header("Seaweed")]
+    public List<SeaweedTrigger> seaweeds; 
+
     void Start()
     {
         foreach (var fish in fishPool)
@@ -23,7 +26,11 @@ public class FishSpawner : MonoBehaviour
 
         if (int.TryParse(valueStr, out int forceValue))
         {
-            DisturbFish();
+            if (forceValue > 50) 
+            {
+                Debug.Log("Force hit! Disturbing fish and seaweed.");
+                DisturbFish();
+            }
         }
     }
 
@@ -33,12 +40,11 @@ public class FishSpawner : MonoBehaviour
         {
             if (fish.activeSelf)
             {
-                RandomFishMovement2 moveScript =
-                    fish.GetComponent<RandomFishMovement2>();
+                RandomFishMovement2 moveScript = fish.GetComponent<RandomFishMovement2>();
 
                 if (moveScript != null)
                 {
-                    moveScript.ApplyBoost(1.0f);
+                    moveScript.ApplyBoost(2.0f);
                 }
             }
         }
@@ -49,16 +55,10 @@ public class FishSpawner : MonoBehaviour
     // =========================
     public void ProcessNFCData(string input)
     {
-        string[] parts =
-            input.Replace("UID:", "").Trim().Split(' ');
-
-        if (parts.Length > 0)
+        // 5. Restored the safe HashCode fix so the Hex parser doesn't crash!
+        if (!string.IsNullOrEmpty(input))
         {
-            int seed = int.Parse(
-                parts[0],
-                System.Globalization.NumberStyles.HexNumber
-            );
-
+            int seed = input.GetHashCode();
             SpawnGroup(seed);
         }
     }
@@ -78,9 +78,7 @@ public class FishSpawner : MonoBehaviour
         for (int i = 0; i < indices.Count; i++)
         {
             int temp = indices[i];
-
-            int randomIndex =
-                Random.Range(i, indices.Count);
+            int randomIndex = Random.Range(i, indices.Count);
 
             indices[i] = indices[randomIndex];
             indices[randomIndex] = temp;
@@ -98,13 +96,10 @@ public class FishSpawner : MonoBehaviour
         for (int i = 0; i < targetCount; i++)
         {
             int fishIndex = indices[i];
-
             GameObject selectedFish = fishPool[fishIndex];
 
             selectedFish.SetActive(true);
-
-            selectedFish.transform.position =
-                new Vector3(
+            selectedFish.transform.position = new Vector3(
                     Random.Range(-6f, 6f),
                     Random.Range(-3f, 3f),
                     0

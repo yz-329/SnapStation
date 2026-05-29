@@ -97,10 +97,11 @@ public class ArduinoManager : MonoBehaviour
 
                     if (int.TryParse(valueStr, out int flexValue))
                     {
-                        if (flexValue < 800 || flexValue > 3000)
-                        {
-                            seaweedTrigger.Wiggle();
-                        }
+                        // if (flexValue < 800 || flexValue > 3000)
+                        // {
+                        //     seaweedTrigger.Wiggle();
+                        // }
+                        seaweedTrigger.Wiggle();
                     }
                 }
 
