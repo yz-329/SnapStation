@@ -231,7 +231,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
-  moveSpeed: 5
+  moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 76f24ddfae1924cdcad03d38a855da85, type: 3}
   twoPieceSprite: {fileID: 21300000, guid: 0071c19f9806b4fbdab628f42fa2de6c, type: 3}
@@ -780,7 +780,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
-  moveSpeed: 5
+  moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 9ad4310135b214420b762a95fe409eb6, type: 3}
   twoPieceSprite: {fileID: 21300000, guid: 895df2926b1ee4bafa23e7d43b410d07, type: 3}
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
-  moveSpeed: 5
+  moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 1673323b0cd894e7eadcc716c164ff26, type: 3}
   twoPieceSprite: {fileID: 21300000, guid: 863edd91518a94b75935bf635ad34a86, type: 3}
@@ -2263,7 +2263,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
-  moveSpeed: 5
+  moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 07509bedbf352447185228d3da5745ae, type: 3}
   twoPieceSprite: {fileID: 21300000, guid: 3279788a4595a4678a1318ff5a145e65, type: 3}
