@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO.Ports;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem; 
 
 public class ArduinoManager : MonoBehaviour
 {
@@ -38,6 +39,61 @@ public class ArduinoManager : MonoBehaviour
 
     void Update()
     {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        // ==========================================
+        // FAKE UID TRIGGER (Press 'N' key)
+        // ==========================================
+        if (Keyboard.current != null && Keyboard.current.nKey.wasPressedThisFrame)
+        {
+            string fakeUID = "1A2B3C4D"; 
+            
+            // This will now print the exact scene name Unity sees!
+            Debug.Log("Manual NFC Triggered. Current Scene is: [" + currentScene + "]");
+
+            if (currentScene == "SampleScene")
+            {
+                if (introScreen != null) 
+                {
+                    SpriteRenderer introSr = introScreen.GetComponent<SpriteRenderer>();
+                    if (introSr != null) introSr.enabled = false;
+                }
+
+                if (fishSpawner != null) 
+                {
+                    fishSpawner.ProcessNFCData(fakeUID);
+                    Debug.Log("Successfully sent Fake UID to Fish Spawner!");
+                }
+                else 
+                {
+                    // ALARM 1
+                    Debug.LogError("FISH SPAWNER IS MISSING! Please drag it into the ArduinoManager Inspector.");
+                }
+            }
+            else if (currentScene == "Cooking_Scene")
+            {
+                if (fruitSpawner != null)
+                {
+                    fruitSpawner.ActivateFruit(fakeUID);
+                    Debug.Log("Successfully sent Fake UID to Fruit Spawner!");
+                }
+                else
+                {
+                    // ALARM 2
+                    Debug.LogError("FRUIT SPAWNER IS MISSING! Please drag it into the ArduinoManager Inspector.");
+                }
+            }
+            else 
+            {
+                // ALARM 3
+                Debug.LogWarning("SCENE NAME MISMATCH: The script doesn't know what to do in a scene named: " + currentScene);
+            }
+        }
+
+        // ==========================================
+        // SERIAL PORT DATA READING
+        // ==========================================
+
         if (serialPort == null || !serialPort.IsOpen)
             return;
 
@@ -45,32 +101,15 @@ public class ArduinoManager : MonoBehaviour
         {
             string data = serialPort.ReadLine().Trim();
 
-            string currentScene = SceneManager.GetActiveScene().name;
+            Debug.Log(data);
 
             if (currentScene == "SampleScene")
             {
-                if (data.StartsWith("UID:"))
-                {
-                    if (introScreen != null) 
-                    {
-                        SpriteRenderer introSr = introScreen.GetComponent<SpriteRenderer>();
-                        if (introSr != null)
-                        {
-                            introSr.enabled = false;
-                        }
-                    }
-
-                    Debug.Log(data);
-                    string uid = data.Replace("UID:", "").Trim();
-
-                    fishSpawner.ProcessNFCData(uid);
-                }
-
-                else if (data.StartsWith("FORCE:"))
+                // Removed the UID check entirely. Starts directly with FORCE.
+                if (data.StartsWith("FORCE:"))
                 {
                     fishSpawner.ProcessForceData(data);
                 }
-
                 else if (data.StartsWith("ACCEL_Y:"))
                 {
                     string valueStr = data.Replace("ACCEL_Y:", "").Trim();
@@ -80,7 +119,6 @@ public class ArduinoManager : MonoBehaviour
                         fishingController.ProcessAccelY(accelY);
                     }
                 }
-
                 else if (data.StartsWith("JOY_Y:"))
                 {
                     string valueStr = data.Replace("JOY_Y:", "").Trim();
@@ -90,21 +128,18 @@ public class ArduinoManager : MonoBehaviour
                         hookMovement.ProcessJoystick(joyValue);
                     }
                 }
-
                 else if (data.StartsWith("FLEX:"))
                 {
                     string valueStr = data.Replace("FLEX:", "").Trim();
 
                     if (int.TryParse(valueStr, out int flexValue))
                     {
-                        // if (flexValue < 800 || flexValue > 3000)
-                        // {
-                        //     seaweedTrigger.Wiggle();
-                        // }
-                        seaweedTrigger.Wiggle();
+                        if (flexValue < 800 || flexValue > 3000)
+                        {
+                            seaweedTrigger.Wiggle();
+                        }
                     }
                 }
-
                 else if (data.StartsWith("BUTTON:"))
                 {
                     string valueStr = data.Replace("BUTTON:", "").Trim();
@@ -114,7 +149,6 @@ public class ArduinoManager : MonoBehaviour
                         overlayFade.ToggleOverlay();
                     }
                 }
-
                 else if (data.StartsWith("SCENE:"))
                 {
                     string valueStr = data.Replace("SCENE:", "").Trim();
@@ -125,22 +159,12 @@ public class ArduinoManager : MonoBehaviour
                     }
                 }
             }
-
             else if (currentScene == "Cooking_Scene")
             {
-                if (fruitSpawner != null)
+                // Simply forward ALL incoming serial data directly to the active fruit!
+                if (fruitSpawner != null && fruitSpawner.activeFruit != null)
                 {
-                    // 1. Check for NFC Scan
-                    if (data.StartsWith("UID:"))
-                    {
-                        string uid = data.Replace("UID:", "").Trim();
-                        fruitSpawner.ActivateFruit(uid);
-                    }
-                    // 2. Forward ALL OTHER physical inputs to the active fruit
-                    else if (fruitSpawner.activeFruit != null)
-                    {
-                        fruitSpawner.activeFruit.ProcessInput(data);
-                    }
+                    fruitSpawner.activeFruit.ProcessInput(data);
                 }
             }
         }
@@ -150,7 +174,7 @@ public class ArduinoManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            // Debug.LogWarning(e.Message);
+            Debug.LogWarning(e.Message);
         }
     }
 

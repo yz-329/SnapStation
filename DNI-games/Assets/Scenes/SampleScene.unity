@@ -885,6 +885,7 @@ MonoBehaviour:
   - {fileID: 1454955362}
   - {fileID: 447314097}
   - {fileID: 369372632}
+  seaweeds: []
 --- !u!4 &441455442
 Transform:
   m_ObjectHideFlags: 0
@@ -2096,7 +2097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSwitcher
   portName: /dev/tty.usbserial-59690940491
-  baudRate: 9600
+  baudRate: 4800
 --- !u!114 &1039667615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2181,7 +2182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FishingController
   hookMovement: {fileID: 821945712}
   hook: {fileID: 821945709}
-  castThreshold: 7
+  castThreshold: 4
 --- !u!4 &1242877190
 Transform:
   m_ObjectHideFlags: 0

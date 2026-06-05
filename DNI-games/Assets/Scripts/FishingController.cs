@@ -7,7 +7,7 @@ public class FishingController : MonoBehaviour
     private AudioSource hookAudio;
 
     [Header("Cast Detection")]
-    public float castThreshold = 7f;
+    public float castThreshold = 4f;
 
     private float lastAccelY = 0f;
     private bool castTriggered = false;

@@ -150,6 +150,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &449498458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449498460}
+  - component: {fileID: 449498459}
+  m_Layer: 0
+  m_Name: ArduinoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &449498459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449498458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da052f0c204dc4c44999c4b3b5dbd3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArduinoManager
+  portName: /dev/tty.usbserial-59690940491
+  baudRate: 9600
+  fishSpawner: {fileID: 0}
+  fishingController: {fileID: 0}
+  hookMovement: {fileID: 0}
+  overlayFade: {fileID: 0}
+  seaweedTrigger: {fileID: 0}
+  sceneSwitcher: {fileID: 0}
+  fruitSpawner: {fileID: 677910765}
+  introScreen: {fileID: 0}
+--- !u!4 &449498460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449498458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &456204566
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +285,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
+  jamOffset: {x: 0, y: 0, z: 0}
   moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 76f24ddfae1924cdcad03d38a855da85, type: 3}
@@ -780,6 +835,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
+  jamOffset: {x: 0, y: 0, z: 0}
   moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 9ad4310135b214420b762a95fe409eb6, type: 3}
@@ -1248,7 +1304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSwitcher
   portName: /dev/tty.usbserial-59690940491
-  baudRate: 9600
+  baudRate: 4800
 --- !u!114 &1052550747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1694,6 +1750,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
+  jamOffset: {x: 0, y: 0, z: 0}
   moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 1673323b0cd894e7eadcc716c164ff26, type: 3}
@@ -2263,6 +2320,7 @@ MonoBehaviour:
   boardPos: {fileID: 1433893600}
   potPos: {fileID: 2027831229}
   platePos: {fileID: 906416506}
+  jamOffset: {x: 0, y: 0, z: 0}
   moveSpeed: 6
   cameraSlide: {fileID: 1828023529}
   wholeSprite: {fileID: 21300000, guid: 07509bedbf352447185228d3da5745ae, type: 3}
@@ -2574,3 +2632,4 @@ SceneRoots:
   - {fileID: 1851482714}
   - {fileID: 1052550745}
   - {fileID: 677910766}
+  - {fileID: 449498460}

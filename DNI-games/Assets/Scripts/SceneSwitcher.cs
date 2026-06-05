@@ -10,7 +10,7 @@ public class SceneSwitcher : MonoBehaviour
 
     [Header("Serial Settings")]
     public string portName = "/dev/tty.usbmodem1201";
-    public int baudRate = 9600;
+    public int baudRate = 4800;
 
     private SerialPort serialPort;
     private int currentSceneState = -1;
@@ -77,7 +77,7 @@ public class SceneSwitcher : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            // Debug.LogWarning(e.Message);
+            Debug.LogWarning(e.Message);
         }
     }
 
