@@ -101,12 +101,21 @@ public class ArduinoManager : MonoBehaviour
         {
             string data = serialPort.ReadLine().Trim();
 
-            Debug.Log(data);
+            // Debug.Log(data);
 
             if (currentScene == "SampleScene")
             {
+                if (data.StartsWith("UID:"))
+                {
+                    string uidStr = data.Replace("UID:", "").Trim();
+                    if (fishSpawner != null) 
+                    {
+                        fishSpawner.ProcessNFCData(uidStr);
+                        Debug.Log("Real NFC Scanned: " + uidStr);
+                    }
+                }
                 // Removed the UID check entirely. Starts directly with FORCE.
-                if (data.StartsWith("FORCE:"))
+                else if (data.StartsWith("FORCE:"))
                 {
                     fishSpawner.ProcessForceData(data);
                 }
@@ -161,8 +170,16 @@ public class ArduinoManager : MonoBehaviour
             }
             else if (currentScene == "Cooking_Scene")
             {
-                // Simply forward ALL incoming serial data directly to the active fruit!
-                if (fruitSpawner != null && fruitSpawner.activeFruit != null)
+                if (data.StartsWith("UID:"))
+                {
+                    string uidStr = data.Replace("UID:", "").Trim();
+                    if (fruitSpawner != null) 
+                    {
+                        fruitSpawner.ActivateFruit(uidStr);
+                        Debug.Log("Real NFC Scanned for Cooking: " + uidStr);
+                    }
+                }
+                else if (fruitSpawner != null && fruitSpawner.activeFruit != null)
                 {
                     fruitSpawner.activeFruit.ProcessInput(data);
                 }

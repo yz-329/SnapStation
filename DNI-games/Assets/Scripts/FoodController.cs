@@ -19,7 +19,7 @@ public class FoodController : MonoBehaviour
     public Sprite twoPieceSprite;
     public Sprite fourPieceSprite;
     public Sprite jamSprite;
-    public Sprite cakeSprite;
+    public Sprite[] cakeSprites;
 
     [Header("UI Elements")]
     public GameObject introScreen;
@@ -202,10 +202,13 @@ public class FoodController : MonoBehaviour
             string valStr = data.Replace("FLEX:", "").Trim();
             if (int.TryParse(valStr, out int valInt))
             {
-                if (instruction_1 != null) instruction_1.SetActive(false);
-                audioSource.PlayOneShot(moveSound);
-                isMoving = true;
-                cameraSlide.MoveToStep(1);
+                if (valInt < 1300)
+                {
+                    if (instruction_1 != null) instruction_1.SetActive(false);
+                    audioSource.PlayOneShot(moveSound);
+                    isMoving = true;
+                    cameraSlide.MoveToStep(1);
+                }
             }
         }
 
@@ -215,7 +218,7 @@ public class FoodController : MonoBehaviour
             string valStr = data.Replace("ACCEL_Y:", "").Trim();
             if (float.TryParse(valStr, out float valFloat))
             {
-                if (valFloat > 7f) ChopFood();
+                if (valFloat > 7f || valFloat < -7f) ChopFood();
             }
         }
 
@@ -300,12 +303,17 @@ public class FoodController : MonoBehaviour
     {
         sr.enabled = false;
 
-        // Render the physical cake
         generatedCake = new GameObject("Cake");
         SpriteRenderer cakeSr = generatedCake.AddComponent<SpriteRenderer>();
 
-        cakeSr.sprite = cakeSprite;
-        currentCakeSprite = cakeSprite;
+        if (cakeSprites != null && cakeSprites.Length > 0)
+        {
+            int randomIndex = Random.Range(0, cakeSprites.Length);
+            Sprite selectedSprite = cakeSprites[randomIndex];
+
+            cakeSr.sprite = selectedSprite;
+            currentCakeSprite = selectedSprite;
+        }
 
         generatedCake.transform.position = platePos.position;
         cakeSr.sortingOrder = 10;
