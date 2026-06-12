@@ -36,15 +36,25 @@ public class FishSpawner : MonoBehaviour
 
     void DisturbFish()
     {
+        if (fishPool == null || fishPool.Count == 0) return;
+
         foreach (var fish in fishPool)
         {
+            if (fish == null) continue;
+
             if (fish.activeSelf)
             {
-                RandomFishMovement2 moveScript = fish.GetComponent<RandomFishMovement2>();
+                // TARGET THE CORRECT SCRIPT: Look for RandomFishMovement instead of 2
+                RandomFishMovement moveScript = fish.GetComponent<RandomFishMovement>();
+                if (moveScript == null)
+                {
+                    moveScript = fish.GetComponentInChildren<RandomFishMovement>();
+                }
 
                 if (moveScript != null)
                 {
-                    moveScript.ApplyBoost(2.0f);
+                    // Triggers the speed boost multiplier for 2 seconds
+                    moveScript.ApplyBoost(2.0f); 
                 }
             }
         }

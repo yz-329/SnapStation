@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class RandomFishMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float speed = 2f;
+    public float boostMultiplier = 2.5f; // Multiplies base speed when forced
 
+    private float currentSpeed;
+    private float boostTimer = 0f;
     private int direction = -1; // START LEFT (correct)
     private float minX, maxX;
+    
+    [Header("State")]
     public bool isCaught = false;
 
     private Vector3 originalScale;
@@ -13,6 +19,7 @@ public class RandomFishMovement : MonoBehaviour
     void Start()
     {
         originalScale = transform.localScale;
+        currentSpeed = speed;
 
         Camera cam = Camera.main;
         float height = cam.orthographicSize;
@@ -21,8 +28,6 @@ public class RandomFishMovement : MonoBehaviour
         minX = -width;
         maxX = width;
 
-        // IMPORTANT: DO NOT force flip here
-        // Your sprite already faces LEFT correctly
         ApplyFacing();
     }
 
@@ -30,7 +35,19 @@ public class RandomFishMovement : MonoBehaviour
     {
         if (isCaught) return;
 
-        transform.position += Vector3.right * direction * speed * Time.deltaTime;
+        // Handle force sensor boost countdown
+        if (boostTimer > 0)
+        {
+            boostTimer -= Time.deltaTime;
+            currentSpeed = speed * boostMultiplier;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
+
+        // Move fish using the dynamic current speed
+        transform.position += Vector3.right * direction * currentSpeed * Time.deltaTime;
 
         // Only change direction at edges
         if (transform.position.x >= maxX)
@@ -43,6 +60,12 @@ public class RandomFishMovement : MonoBehaviour
             direction = 1;
             ApplyFacing();
         }
+    }
+
+    // Called from FishSpawner when the physical Force sensor is hit
+    public void ApplyBoost(float duration)
+    {
+        boostTimer = duration;
     }
 
     void ApplyFacing()

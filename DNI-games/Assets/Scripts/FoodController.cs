@@ -301,8 +301,25 @@ public class FoodController : MonoBehaviour
 
     void MakeCake()
     {
+        // 1. Immediately turn off the old jam sprite so it doesn't just sit there
         sr.enabled = false;
 
+        // 2. Start panning the camera to the plate right away
+        if (cameraSlide != null)
+        {
+            cameraSlide.MoveToStep(3);
+        }
+
+        // 3. Start a delayed routine to wait for the camera pan before showing the cake
+        StartCoroutine(ShowCakeAfterPan(0.3f)); // Adjust this delay (in seconds) to match your camera slide duration!
+    }
+
+    IEnumerator ShowCakeAfterPan(float delay)
+    {
+        // Wait here while the camera is sliding
+        yield return new WaitForSeconds(delay);
+
+        // 4. NOW spawn the cake perfectly on time!
         generatedCake = new GameObject("Cake");
         SpriteRenderer cakeSr = generatedCake.AddComponent<SpriteRenderer>();
 
@@ -318,12 +335,20 @@ public class FoodController : MonoBehaviour
         generatedCake.transform.position = platePos.position;
         cakeSr.sortingOrder = 10;
 
-        audioSource.PlayOneShot(cakeSound);
+        // Play the audio and turn on UI instructions right as it appears
+        if (audioSource != null && cakeSound != null)
+        {
+            audioSource.PlayOneShot(cakeSound);
+        }
+        
         if (instruction_4 != null) instruction_4.SetActive(true);
         cakeReady = true;
 
-        cameraSlide.MoveToStep(3);
-        if (photoCakeRenderer != null) photoCakeRenderer.sprite = currentCakeSprite;
+        // Set up your photo frame renderer
+        if (photoCakeRenderer != null) 
+        {
+            photoCakeRenderer.sprite = currentCakeSprite;
+        }
     }
 
     void TakePhoto()
