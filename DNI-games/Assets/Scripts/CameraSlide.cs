@@ -16,20 +16,7 @@ public class CameraSlide : MonoBehaviour
             StartCoroutine(SmoothMove(cameraPositions[stepIndex-1].position));
         }
     }
-    // public void MoveToStep(int stepIndex)
-    // {
-    //     // Prevent invalid indexes
-    //     if (stepIndex < 0 || stepIndex >= cameraPositions.Length)
-    //     {
-    //         Debug.LogWarning("Invalid camera step index: " + stepIndex);
-    //         return;
-    //     }
 
-    //     // Stop previous movement if needed
-    //     StopAllCoroutines();
-
-    //     StartCoroutine(SmoothMove(cameraPositions[stepIndex].position));
-    // }
     IEnumerator SmoothMove(Vector3 targetPos)
     {
         isMoving = true;

@@ -24,6 +24,7 @@ public class FishingController : MonoBehaviour
 
         if (!castTriggered && delta > castThreshold)
         {
+            Debug.Log($"Cast Gesture Detected! Delta: {delta}");
             CastHook();
             castTriggered = true;
         }

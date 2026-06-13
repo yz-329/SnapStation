@@ -62,6 +62,7 @@ public class HookMovement : MonoBehaviour
     {
         if (joyValue > 3000)
         {
+            Debug.Log($"Reeling Detected! Joystick: {joyValue}");
             StartReel();
         }
 

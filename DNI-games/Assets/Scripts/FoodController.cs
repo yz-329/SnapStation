@@ -14,6 +14,12 @@ public class FoodController : MonoBehaviour
     public float moveSpeed = 5f;
     public CameraSlide cameraSlide;
 
+    [Header("Chop Detection")]
+    public float chopThreshold = 4f;
+
+    private float lastAccelY = 0f;
+    private bool chopTriggered = false;
+
     [Header("Sprites")]
     public Sprite wholeSprite;
     public Sprite twoPieceSprite;
@@ -123,7 +129,12 @@ public class FoodController : MonoBehaviour
         if (Keyboard.current != null)
         {
             if (Keyboard.current.mKey.wasPressedThisFrame) ProcessInput("FLEX: 1000"); 
-            else if (Keyboard.current.cKey.wasPressedThisFrame) ProcessInput("ACCEL_Y: 10.0");
+            else if (Keyboard.current.cKey.wasPressedThisFrame)
+            {
+                chopTriggered = false; 
+                lastAccelY = 0f;
+                ProcessInput("ACCEL_Y: 10.0");
+            }
             else if (Keyboard.current.sKey.wasPressedThisFrame) ProcessInput("JOY_Y: 0");
             else if (Keyboard.current.pKey.wasPressedThisFrame) ProcessInput("FORCE: 100");
             else if (Keyboard.current.rKey.wasPressedThisFrame) ProcessInput("BUTTON: yes");
@@ -167,14 +178,13 @@ public class FoodController : MonoBehaviour
     // ==========================================
     public void ProcessInput(string data)
     {
-        Debug.Log("FoodController received: " + data);
-
         // PRIORITY 1: Master Reset Button
         if (data.StartsWith("BUTTON:"))
         {
             string valStr = data.Replace("BUTTON:", "").Trim();
             if (valStr == "yes")
             {
+                Debug.Log($"BUTTON: {valStr}");
                 ResetState();
                 FruitSpawner spawner = FindObjectOfType<FruitSpawner>();
                 if (spawner != null) spawner.SpawnNextFruit();
@@ -204,6 +214,7 @@ public class FoodController : MonoBehaviour
             {
                 if (valInt < 1300)
                 {
+                    Debug.Log($"FLEX: {valInt}");
                     if (instruction_1 != null) instruction_1.SetActive(false);
                     audioSource.PlayOneShot(moveSound);
                     isMoving = true;
@@ -218,7 +229,27 @@ public class FoodController : MonoBehaviour
             string valStr = data.Replace("ACCEL_Y:", "").Trim();
             if (float.TryParse(valStr, out float valFloat))
             {
-                if (valFloat > 7f || valFloat < -7f) ChopFood();
+                // Calculate directional delta change (current frame minus last frame)
+                float delta = valFloat - lastAccelY;
+
+                // Detect a sudden crisp downward strike gesture (high delta value)
+                if (!chopTriggered && (delta > chopThreshold || delta < -chopThreshold))
+                {   
+                    Debug.Log($"Chop Gesture Detected! Delta: {delta}");
+                    ChopFood();
+                    chopTriggered = true;
+                } else
+                {
+                    Debug.Log($"Too gentle, chop harder! Delta: {delta}");
+                }
+
+                // Automatically clear and reset trigger once the speed delta normalizes
+                if (chopTriggered && Mathf.Abs(delta) < 1.0f)
+                {
+                    chopTriggered = false;
+                }
+
+                lastAccelY = valFloat;
             }
         }
 
@@ -230,6 +261,7 @@ public class FoodController : MonoBehaviour
             {
                 if (valInt == 0 || valInt == 4096)
                 {
+                    Debug.Log($"JOY_Y: {valInt}");
                     StartCoroutine(TransformToJam());
                 }
             }
@@ -238,6 +270,7 @@ public class FoodController : MonoBehaviour
         // STAGE 5: Take Photo (Force Sensor)
         else if (cakeReady && !photoTaken && data.StartsWith("FORCE:"))
         {
+            Debug.Log(data);
             TakePhoto();
         }
     }
@@ -264,7 +297,7 @@ public class FoodController : MonoBehaviour
         if (instruction_3 != null) instruction_3.SetActive(false);
 
         sr.sprite = jamSprite;
-        sr.flipX = true; // Mirrors the image if needed (remove this line if you don't want it flipped!)
+        sr.flipX = true; 
 
         // Snap exactly to the pot position + the custom offset you set in the Inspector
         transform.position = potPos.position + jamOffset;
@@ -311,7 +344,7 @@ public class FoodController : MonoBehaviour
         }
 
         // 3. Start a delayed routine to wait for the camera pan before showing the cake
-        StartCoroutine(ShowCakeAfterPan(0.3f)); // Adjust this delay (in seconds) to match your camera slide duration!
+        StartCoroutine(ShowCakeAfterPan(0.3f)); 
     }
 
     IEnumerator ShowCakeAfterPan(float delay)

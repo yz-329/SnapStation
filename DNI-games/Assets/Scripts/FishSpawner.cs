@@ -28,7 +28,7 @@ public class FishSpawner : MonoBehaviour
         {
             if (forceValue > 50) 
             {
-                Debug.Log("Force hit! Disturbing fish and seaweed.");
+                Debug.Log($"Force hit! Force: {forceValue}");
                 DisturbFish();
             }
         }

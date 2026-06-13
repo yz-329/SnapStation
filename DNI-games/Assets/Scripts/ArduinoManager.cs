@@ -101,8 +101,6 @@ public class ArduinoManager : MonoBehaviour
         {
             string data = serialPort.ReadLine().Trim();
 
-            // Debug.Log(data);
-
             if (currentScene == "SampleScene")
             {
                 if (data.StartsWith("UID:"))
@@ -145,6 +143,7 @@ public class ArduinoManager : MonoBehaviour
                     {
                         if (flexValue < 800 || flexValue > 3000)
                         {
+                            Debug.Log($"Seaweed Triggered! Flex: {flexValue}");
                             seaweedTrigger.Wiggle();
                         }
                     }
