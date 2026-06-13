@@ -42,145 +42,65 @@ public class ArduinoManager : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
 
         // ==========================================
-        // FAKE UID TRIGGER (Press 'N' key)
+        // KEYBOARD DEBUG OVERRIDES (For Testing)
         // ==========================================
-        if (Keyboard.current != null && Keyboard.current.nKey.wasPressedThisFrame)
+        if (Keyboard.current != null)
         {
-            string fakeUID = "1A2B3C4D"; 
-            
-            // This will now print the exact scene name Unity sees!
-            Debug.Log("Manual NFC Triggered. Current Scene is: [" + currentScene + "]");
+            // Universal NFC/UID key (N)
+            if (Keyboard.current.nKey.wasPressedThisFrame)
+            {
+                string fakeUID = "1A2B3C4D"; 
+                Debug.Log("Manual NFC Triggered. Current Scene is: [" + currentScene + "]");
 
+                if (currentScene == "SampleScene")
+                {
+                    if (introScreen != null) 
+                    {
+                        SpriteRenderer introSr = introScreen.GetComponent<SpriteRenderer>();
+                        if (introSr != null) introSr.enabled = false;
+                    }
+
+                    if (fishSpawner != null) fishSpawner.ProcessNFCData(fakeUID);
+                    else Debug.LogError("FISH SPAWNER IS MISSING in Inspector!");
+                }
+                else if (currentScene == "Cooking_Scene")
+                {
+                    if (fruitSpawner != null) fruitSpawner.ActivateFruit(fakeUID);
+                    else Debug.LogError("FRUIT SPAWNER IS MISSING in Inspector!");
+                }
+            }
+
+            // Scene-Specific Keyboard Emulators
             if (currentScene == "SampleScene")
             {
-                if (introScreen != null) 
-                {
-                    SpriteRenderer introSr = introScreen.GetComponent<SpriteRenderer>();
-                    if (introSr != null) introSr.enabled = false;
-                }
-
-                if (fishSpawner != null) 
-                {
-                    fishSpawner.ProcessNFCData(fakeUID);
-                    Debug.Log("Successfully sent Fake UID to Fish Spawner!");
-                }
-                else 
-                {
-                    // ALARM 1
-                    Debug.LogError("FISH SPAWNER IS MISSING! Please drag it into the ArduinoManager Inspector.");
-                }
-            }
-            else if (currentScene == "Cooking_Scene")
-            {
-                if (fruitSpawner != null)
-                {
-                    fruitSpawner.ActivateFruit(fakeUID);
-                    Debug.Log("Successfully sent Fake UID to Fruit Spawner!");
-                }
-                else
-                {
-                    // ALARM 2
-                    Debug.LogError("FRUIT SPAWNER IS MISSING! Please drag it into the ArduinoManager Inspector.");
-                }
-            }
-            else 
-            {
-                // ALARM 3
-                Debug.LogWarning("SCENE NAME MISMATCH: The script doesn't know what to do in a scene named: " + currentScene);
+                if (Keyboard.current.aKey.wasPressedThisFrame) ProcessSerialLine("ACCEL_Y: 10.0", currentScene);
+                else if (Keyboard.current.jKey.wasPressedThisFrame) ProcessSerialLine("JOY_Y: 4095", currentScene);
+                else if (Keyboard.current.fKey.wasPressedThisFrame) ProcessSerialLine("FORCE: 100", currentScene);
+                else if (Keyboard.current.bKey.wasPressedThisFrame) ProcessSerialLine("BUTTON: yes", currentScene);
+                else if (Keyboard.current.xKey.wasPressedThisFrame) ProcessSerialLine("FLEX: 500", currentScene);
             }
         }
 
         // ==========================================
-        // SERIAL PORT DATA READING
+        // HARDWARE SERIAL PORT READING
         // ==========================================
-
         if (serialPort == null || !serialPort.IsOpen)
             return;
 
         try
         {
-            string data = serialPort.ReadLine().Trim();
+            // Process batches to clean buffers instantly without frame stuttering
+            int maxLinesPerFrame = 30; 
+            int linesRead = 0;
 
-            if (currentScene == "SampleScene")
+            while (serialPort.BytesToRead > 0 && linesRead < maxLinesPerFrame)
             {
-                if (data.StartsWith("UID:"))
-                {
-                    string uidStr = data.Replace("UID:", "").Trim();
-                    if (fishSpawner != null) 
-                    {
-                        fishSpawner.ProcessNFCData(uidStr);
-                        Debug.Log("Real NFC Scanned: " + uidStr);
-                    }
-                }
-                // Removed the UID check entirely. Starts directly with FORCE.
-                else if (data.StartsWith("FORCE:"))
-                {
-                    fishSpawner.ProcessForceData(data);
-                }
-                else if (data.StartsWith("ACCEL_Y:"))
-                {
-                    string valueStr = data.Replace("ACCEL_Y:", "").Trim();
+                string data = serialPort.ReadLine().Trim();
+                linesRead++;
 
-                    if (float.TryParse(valueStr, out float accelY))
-                    {
-                        fishingController.ProcessAccelY(accelY);
-                    }
-                }
-                else if (data.StartsWith("JOY_Y:"))
+                if (!string.IsNullOrEmpty(data))
                 {
-                    string valueStr = data.Replace("JOY_Y:", "").Trim();
-
-                    if (int.TryParse(valueStr, out int joyValue))
-                    {
-                        hookMovement.ProcessJoystick(joyValue);
-                    }
-                }
-                else if (data.StartsWith("FLEX:"))
-                {
-                    string valueStr = data.Replace("FLEX:", "").Trim();
-
-                    if (int.TryParse(valueStr, out int flexValue))
-                    {
-                        if (flexValue < 800 || flexValue > 3000)
-                        {
-                            Debug.Log($"Seaweed Triggered! Flex: {flexValue}");
-                            seaweedTrigger.Wiggle();
-                        }
-                    }
-                }
-                else if (data.StartsWith("BUTTON:"))
-                {
-                    string valueStr = data.Replace("BUTTON:", "").Trim();
-
-                    if (valueStr == "yes")
-                    {
-                        overlayFade.ToggleOverlay();
-                    }
-                }
-                else if (data.StartsWith("SCENE:"))
-                {
-                    string valueStr = data.Replace("SCENE:", "").Trim();
-
-                    if (int.TryParse(valueStr, out int sceneState))
-                    {
-                        sceneSwitcher.ProcessSceneSwitch(sceneState);
-                    }
-                }
-            }
-            else if (currentScene == "Cooking_Scene")
-            {
-                if (data.StartsWith("UID:"))
-                {
-                    string uidStr = data.Replace("UID:", "").Trim();
-                    if (fruitSpawner != null) 
-                    {
-                        fruitSpawner.ActivateFruit(uidStr);
-                        Debug.Log("Real NFC Scanned for Cooking: " + uidStr);
-                    }
-                }
-                else if (fruitSpawner != null && fruitSpawner.activeFruit != null)
-                {
-                    fruitSpawner.activeFruit.ProcessInput(data);
+                    ProcessSerialLine(data, currentScene);
                 }
             }
         }
@@ -190,7 +110,99 @@ public class ArduinoManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogWarning(e.Message);
+            Debug.LogWarning("Serial read error: " + e.Message);
+        }
+    }
+
+    // ==========================================
+    // CENTRAL LOGIC PARSER
+    // ==========================================
+    void ProcessSerialLine(string data, string currentScene)
+    {
+        if (currentScene == "SampleScene")
+        {
+            if (data.StartsWith("UID:"))
+            {
+                string uidStr = data.Replace("UID:", "").Trim();
+                if (fishSpawner != null) 
+                {
+                    fishSpawner.ProcessNFCData(uidStr);
+                    Debug.Log("Real NFC Scanned: " + uidStr);
+                }
+            }
+            else if (data.StartsWith("FORCE:"))
+            {
+                if (fishSpawner != null) fishSpawner.ProcessForceData(data);
+            }
+            else if (data.StartsWith("ACCEL_Y:"))
+            {
+                string valueStr = data.Replace("ACCEL_Y:", "").Trim();
+                if (fishingController != null && float.TryParse(valueStr, out float accelY))
+                {
+                    fishingController.ProcessAccelY(accelY);
+                }
+            }
+            else if (data.StartsWith("JOY_Y:"))
+            {
+                string valueStr = data.Replace("JOY_Y:", "").Trim();
+                if (hookMovement != null && int.TryParse(valueStr, out int joyValue))
+                {
+                    hookMovement.ProcessJoystick(joyValue);
+                }
+            }
+            else if (data.StartsWith("FLEX:"))
+            {
+                string valueStr = data.Replace("FLEX:", "").Trim();
+                if (int.TryParse(valueStr, out int flexValue))
+                {
+                    if (flexValue < 800 || flexValue > 3000)
+                    {
+                        Debug.Log($"Seaweed Triggered! Flex: {flexValue}");
+                        if (seaweedTrigger != null) seaweedTrigger.Wiggle();
+                    }
+                }
+            }
+            else if (data.StartsWith("BUTTON:"))
+            {
+                string valueStr = data.Replace("BUTTON:", "").Trim();
+                if (valueStr == "yes" && overlayFade != null)
+                {
+                    overlayFade.ToggleOverlay();
+                }
+            }
+            else if (data.StartsWith("SCENE:"))
+            {
+                string valueStr = data.Replace("SCENE:", "").Trim();
+                if (sceneSwitcher != null && int.TryParse(valueStr, out int sceneState))
+                {
+                    sceneSwitcher.ProcessSceneSwitch(sceneState);
+                }
+            }
+        }
+        else if (currentScene == "Cooking_Scene")
+        {
+            if (data.StartsWith("UID:"))
+            {
+                string uidStr = data.Replace("UID:", "").Trim();
+                if (fruitSpawner != null) 
+                {
+                    fruitSpawner.ActivateFruit(uidStr);
+                    Debug.Log("Real NFC Scanned for Cooking: " + uidStr);
+                }
+            }
+            else if (fruitSpawner != null)
+            {
+                FoodController activeFood = fruitSpawner.activeFruit;
+                if (activeFood == null)
+                {
+                    activeFood = Object.FindFirstObjectByType<FoodController>();
+                }
+
+                if (activeFood != null)
+                {
+                    activeFood.ProcessInput(data);
+                }
+            }
         }
     }
 

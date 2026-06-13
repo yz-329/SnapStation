@@ -128,16 +128,16 @@ public class FoodController : MonoBehaviour
         // Manual Keyboard Overrides for Testing
         if (Keyboard.current != null)
         {
-            if (Keyboard.current.mKey.wasPressedThisFrame) ProcessInput("FLEX: 1000"); 
-            else if (Keyboard.current.cKey.wasPressedThisFrame)
+            if (Keyboard.current.xKey.wasPressedThisFrame) ProcessInput("FLEX: 1000"); 
+            else if (Keyboard.current.aKey.wasPressedThisFrame)
             {
                 chopTriggered = false; 
                 lastAccelY = 0f;
                 ProcessInput("ACCEL_Y: 10.0");
             }
-            else if (Keyboard.current.sKey.wasPressedThisFrame) ProcessInput("JOY_Y: 0");
-            else if (Keyboard.current.pKey.wasPressedThisFrame) ProcessInput("FORCE: 100");
-            else if (Keyboard.current.rKey.wasPressedThisFrame) ProcessInput("BUTTON: yes");
+            else if (Keyboard.current.jKey.wasPressedThisFrame) ProcessInput("JOY_Y: 0");
+            else if (Keyboard.current.fKey.wasPressedThisFrame) ProcessInput("FORCE: 100");
+            else if (Keyboard.current.bKey.wasPressedThisFrame) ProcessInput("BUTTON: yes");
         }
 
         // Smooth Movement Logic
